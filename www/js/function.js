@@ -1,5 +1,5 @@
 
-var db = openDatabase("dbPenilaian", "1.0", "Daftar Nilai", 200000);  // Open SQLite Database 
+var db = openDatabase("xyz", "1.0", "Daftar Nilai", 200000);  // Open SQLite Database 
 var dataset;
 var DataType;
  
@@ -26,12 +26,12 @@ function initDatabase()  // Function Call When Page is ready.
  
 function createTable()  // Function for Create Table in SQLite.
 {
-    sqlStatement = "CREATE  TABLE  IF NOT EXISTS tblJurusan (idJurusan INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL  UNIQUE , txtJurusan VARCHAR)";
-	db.transaction(function (tx) { tx.executeSql(sqlStatement, [], console.log("SQL Success"), onError); });
-    sqlStatement = "CREATE  TABLE  IF NOT EXISTS tblKelas (idKelas INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL  UNIQUE, idJurusan INTEGER, txtKelas VARCHAR)";
-	db.transaction(function (tx) { tx.executeSql(sqlStatement, [], console.log("SQL Success"), onError); });
     sqlStatement = "CREATE  TABLE  IF NOT EXISTS tblSiswa (idSiswa INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL  UNIQUE, idKelas INTEGER, txtNamaSiswa VARCHAR)";
 	db.transaction(function (tx) { tx.executeSql(sqlStatement, [], console.log("SQL Success"), onError); });
+    sqlStatement2 = "CREATE  TABLE  IF NOT EXISTS tblJurusan (idJurusan INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL  UNIQUE , txtJurusan VARCHAR)";
+	db.transaction(function (tx) { tx.executeSql(sqlStatement2, [], console.log("SQL Success"), onError); });
+    sqlStatement3 = "CREATE  TABLE  IF NOT EXISTS tblKelas (idKelas INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL  UNIQUE, idJurusan INTEGER, txtKelas VARCHAR)";
+	db.transaction(function (tx) { tx.executeSql(sqlStatement3, [], console.log("SQL Success"), onError); });
 }
 
 function onError(tx, error) // Function for Hendeling Error...
