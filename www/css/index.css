@@ -108,3 +108,32 @@ margin: .8em 30% .8em;
 .ui-icon-ms-home-bt {
     background: url("../img/home-bt.png") 100% 100% no-repeat;
 }
+.uang {
+	text-align: right;
+}
+.btn-menu-utama{
+	background: url("../img/button/btn-green.png") repeat-x;
+	background-size: contain;
+}
+.btn-menu-merah{
+	background: url("../img/button/btn-red.png") repeat-x;
+	background-size: contain;
+}
+.txt-indent {
+	padding-left: 50px;
+}
+.txt-right-indent {
+	padding-right: 50px;
+}
+.bg-welcome {
+	background-image:  url('../img/bg/bg-welcome.jpg');
+	background-position: top left;
+	background-repeat: repeat;
+}
+th {
+    border-bottom: 1px solid #d6d6d6;
+}
+
+tr:nth-child(even) {
+    background: #e9e9e9;
+}

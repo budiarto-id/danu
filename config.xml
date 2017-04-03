@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.promozzing.lenny" version="1.1" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
-    <name>Danu</name>
+<widget id="com.makruvatech.lenny" version="1.1" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
+    <name>Penilaian</name>
     <description>
-        SISTEM PENCATATAN DAN PENILAIAN PERSEDIAAN PADA PERUSAHAAN DAGANG
+        Aplikasi penilaian K13
     </description>
-    <author email="info@promozzing.com" href="http://promozzing.com">
-        Promozzing
+    <author email="info@makruvatech.com" href="http://makruvatech.com">
+        Makruvatech
     </author>
     <content src="index.html" />
     <preference name="permissions" value="none" />
