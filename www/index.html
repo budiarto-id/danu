@@ -49,13 +49,19 @@
 							</a>
 						</li>
 						<li class="btn-menu-utama">
+							<a href="#daftar-jurusan-page" onmousedown="showDaftarJurusan()">
+								<img src="img/Icon%20Materi/merchandise.png" alt="">
+								<h2><b>DAFTAR JURUSAN</b></h2>
+							</a>
+						</li>	
+						<li class="btn-menu-utama">
 							<a href="#daftar-siswa-page" onmousedown="showDropdown()">
 								<img src="img/Icon%20Materi/panduan.png" alt="">
 								<h2><b>DAFTAR SISWA</b></h2>
 							</a>
 						</li>	
 						<li class="btn-menu-utama">
-							<a href="http://tokopedia.com/koaskaosjawi">
+							<a href="#daftar-mapel-page" onmousedown="showDaftarMapel()">
 								<img src="img/Icon%20Materi/merchandise.png" alt="">
 								<h2><b>DAFTAR MAPEL</b></h2>
 							</a>
@@ -87,7 +93,7 @@
             </div>
         </div><!-- /page  -->
 		
-		<!-- Menu Aksara Page -->
+		<!-- Daftar Siswa Page -->
 		<div id="daftar-siswa-page" data-role="page" style="background: url('img/bg/bg-profil.png'); background-repeat: repeat-x repeat-y;">
 			<div data-role="header" data-position="fixed" data-tap-toggle="false" data-transition="none" data-id="header">
 				<a href="#" data-rel="back" data-role="button" data-icon="arrow-l" data-inline="true" >Back</a>
@@ -98,11 +104,11 @@
 				<div style="background:#c0c0c0;padding: 10px 10px 10px 10px;">
 					<b>Lihat Daftar Nama Siswa:</b><br/>
 					<select id="pilihJurusan">
-						<option>Pilih Jurusan</option>
+						<option value='0'>Pilih Jurusan</option>
 						<option>Jurusan 1</option>
 					</select>
 					<select id="pilihKelas">
-						<option>Pilih Jurusan Terlebih Dahulu</option>
+						<option value='0'>Pilih Jurusan Terlebih Dahulu</option>
 						<option>Kelas 1</option>
 					</select>
 					<a href="#" data-role="button" data-icon="search" data-theme="b" data-inline="true" id="searchDaftarSiswa">Lihat Siswa</a>
@@ -115,8 +121,8 @@
 							<th>Aksi</th>
 						</tr>
 					</thead>
-					<tbody>
-						<tr>
+					<tbody id="tabel-daftar-siswa">
+						<!--<tr>
 							<td>Alfreds Futterkiste Ajhgh Anjh Abhhhbhjhj</td>
 							<td><a href="#" data-role="button" data-icon="edit" data-theme="b">Ubah</a><a href="#" data-role="button" data-icon="delete" data-theme="b">Hapus</a></td>
 						</tr>
@@ -131,7 +137,49 @@
 						<tr>
 							<td>Berglunds snabbköp</td>
 							<td><a href="#" data-role="button" data-icon="plus" data-theme="b"></a><a href="#" data-role="button" data-icon="plus" data-theme="b"></a></td>
+						</tr>-->
+					</tbody>
+				</table>
+            </div>
+        </div><!-- /page  -->
+		
+		<!-- Daftar Mapel Page -->
+		<div id="daftar-mapel-page" data-role="page" style="background: url('img/bg/bg-profil.png'); background-repeat: repeat-x repeat-y;">
+			<div data-role="header" data-position="fixed" data-tap-toggle="false" data-transition="none" data-id="header">
+				<a href="#" data-rel="back" data-role="button" data-icon="arrow-l" data-inline="true" >Back</a>
+				<h1>Daftar Mapel</h1>
+            </div>
+            <div data-role="content" style="font-size: 16px;">
+				<a href="#" data-role="button" data-icon="plus" data-theme="b">Tambah Mapel</a>
+				<table data-role="table" data-mode="columntoggle" class="ui-responsive ui-shadow" id="myTable">
+					<thead>
+						<tr>
+							<th>Daftar Mapel</th>
+							<th>Aksi</th>
 						</tr>
+					</thead>
+					<tbody id="tabel-daftar-mapel">
+					</tbody>
+				</table>
+            </div>
+        </div><!-- /page  -->
+		
+		<!-- Daftar Mapel Page -->
+		<div id="daftar-jurusan-page" data-role="page" style="background: url('img/bg/bg-profil.png'); background-repeat: repeat-x repeat-y;">
+			<div data-role="header" data-position="fixed" data-tap-toggle="false" data-transition="none" data-id="header">
+				<a href="#" data-rel="back" data-role="button" data-icon="arrow-l" data-inline="true" >Back</a>
+				<h1>Daftar Jurusan</h1>
+            </div>
+            <div data-role="content" style="font-size: 16px;">
+				<a href="#" data-role="button" data-icon="plus" data-theme="b">Tambah Jurusan</a>
+				<table data-role="table" data-mode="columntoggle" class="ui-responsive ui-shadow" id="myTable">
+					<thead>
+						<tr>
+							<th>Daftar Jurusan</th>
+							<th>Aksi</th>
+						</tr>
+					</thead>
+					<tbody id="tabel-daftar-jurusan">
 					</tbody>
 				</table>
             </div>
