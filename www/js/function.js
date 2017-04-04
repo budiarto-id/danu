@@ -98,7 +98,7 @@ function searchDaftarSiswa(){
 				}
 				for (var i = 0, item = null; i < dataset.length; i++) {
 					item = dataset.item(i);
-					var dataSiswa = "<tr><td>"+item['txtNamaSiswa']+"</td><td><a href='#' data-role='button' data-icon='search' data-theme='b' data-inline='true' data-corners='true' data-shadow='true' data-iconshadow='true' data-wrapperels='span' class='ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-icon-left ui-btn-hover-b ui-btn-up-b'><span class='ui-btn-inner'><span class='ui-btn-text'>Ubah</span><span class='ui-icon ui-icon-search ui-icon-shadow'>&nbsp;</span></span></a><a href='#' data-role='button' data-icon='search' data-theme='b' data-inline='true' data-corners='true' data-shadow='true' data-iconshadow='true' data-wrapperels='span' class='ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-icon-left ui-btn-hover-b ui-btn-up-b'><span class='ui-btn-inner'><span class='ui-btn-text'>Hapus</span><span class='ui-icon ui-icon-search ui-icon-shadow'>&nbsp;</span></span></a></td></tr>"
+					var dataSiswa = "<tr><td>"+item['txtNamaSiswa']+"</td><td><a href='#' data-theme='b' class='ui-btn ui-icon-edit ui-btn-icon-notext ui-corner-all ui-btn-hover-b ui-btn-up-b'></a><a href='#' data-theme='b' class='ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all ui-btn-hover-b ui-btn-up-b'></a></td></tr>"
 					$("#tabel-daftar-siswa").append(dataSiswa);
 				}
 			});
@@ -118,7 +118,7 @@ function showDaftarJurusan(){
 			}
 			for (var i = 0, item = null; i < dataset.length; i++) {
 				item = dataset.item(i);
-				var dataSiswa = "<tr><td>"+item['txtJurusan']+"</td><td><a href='#' data-role='button' data-icon='edit' data-theme='b' data-inline='true' data-corners='true' data-shadow='true' data-iconshadow='true' data-wrapperels='span' class='ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-icon-left ui-btn-hover-b ui-btn-up-b'><span class='ui-btn-inner'><span class='ui-btn-text'>Ubah</span><span class='ui-icon ui-icon-edit ui-icon-shadow'>&nbsp;</span></span></a><a href='#' data-role='button' data-icon='delete' data-theme='b' data-inline='true' data-corners='true' data-shadow='true' data-iconshadow='true' data-wrapperels='span' class='ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-icon-left ui-btn-hover-b ui-btn-up-b'><span class='ui-btn-inner'><span class='ui-btn-text'>Hapus</span><span class='ui-icon ui-icon-delete ui-icon-shadow'>&nbsp;</span></span></a></td></tr>"
+				var dataSiswa = "<tr><td>"+item['txtJurusan']+"</td><td><a href='#' data-theme='b' class='ui-btn ui-icon-edit ui-btn-icon-notext ui-corner-all ui-btn-hover-b ui-btn-up-b'></a><a href='#' data-theme='b' class='ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all ui-btn-hover-b ui-btn-up-b'></a></td></tr>"
 				$("#tabel-daftar-jurusan").append(dataSiswa);
 			}
 		});
@@ -137,7 +137,7 @@ function showDaftarMapel(){
 			}
 			for (var i = 0, item = null; i < dataset.length; i++) {
 				item = dataset.item(i);
-				var dataSiswa = "<tr><td>"+item['txtMapel']+"</td><td><a href='#' data-role='button' data-icon='search' data-theme='b' data-inline='true' data-corners='true' data-shadow='true' data-iconshadow='true' data-wrapperels='span' class='ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-icon-left ui-btn-hover-b ui-btn-up-b'><span class='ui-btn-inner'><span class='ui-btn-text'>Ubah</span><span class='ui-icon ui-icon-search ui-icon-shadow'>&nbsp;</span></span></a><a href='#' data-role='button' data-icon='search' data-theme='b' data-inline='true' data-corners='true' data-shadow='true' data-iconshadow='true' data-wrapperels='span' class='ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-icon-left ui-btn-hover-b ui-btn-up-b'><span class='ui-btn-inner'><span class='ui-btn-text'>Hapus</span><span class='ui-icon ui-icon-search ui-icon-shadow'>&nbsp;</span></span></a></td></tr>"
+				var dataSiswa = "<tr><td>"+item['txtMapel']+"</td><td><a href='#' data-theme='b' class='ui-btn ui-icon-edit ui-btn-icon-notext ui-corner-all ui-btn-hover-b ui-btn-up-b'></a><a href='#' data-theme='b' class='ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all ui-btn-hover-b ui-btn-up-b'></a></td></tr>"
 				$("#tabel-daftar-mapel").append(dataSiswa);
 			}
 		});
