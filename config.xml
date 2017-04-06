@@ -26,6 +26,7 @@
     <plugin name="cordova-plugin-splashscreen" source="npm" />
     <plugin name="cordova-plugin-file" source="npm" />
 	<preference name="AndroidPersistentFileLocation" value="Internal" />
+	<preference name="AndroidExtraFilesystems" value="files,files-external,documents,sdcard,cache,cache-external,assets,root" />
     <icon src="img/icon.png" />
 	<splash src="res/screen/android/splash-port-hdpi.png" />
 	<splash src="res/screen/android/splash-port-ldpi.png" platform="android" qualifier="ldpi" />
