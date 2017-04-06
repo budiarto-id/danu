@@ -13,6 +13,7 @@
 
 	<script type="text/javascript" src="js/index.js"></script>
 	<script type="text/javascript" src="js/function.js"></script>
+	<script type="text/javascript" src="js/tableToExcel.js"></script>
     <script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
 	<script type="text/javascript" charset="utf-8">
     // Call onDeviceReady when PhoneGap is loaded.
@@ -113,8 +114,60 @@
 					</select>
 					<a href="#" data-role="button" data-icon="search" data-theme="b" data-inline="true" id="searchDaftarSiswa">Lihat Siswa</a>
 				</div>
-				
-				<table data-role="table" data-mode="columntoggle" class="ui-responsive ui-shadow" id="myTable">
+				<input type="button" onclick="tableToExcel('testTable', 'Daftar Siswa')" value="Export to Excel">
+				<table data-role="table" data-mode="columntoggle" class="ui-responsive ui-shadow" id="testTable">
+      <thead>
+        <tr>
+          <th data-priority="6">CustomerID</th>
+          <th>CustomerName</th>
+          <th data-priority="1">ContactName</th>
+          <th data-priority="2">Address</th>
+          <th data-priority="3">City</th>
+          <th data-priority="4">PostalCode</th>
+          <th data-priority="5">Country</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Alfreds Futterkiste</td>
+          <td>Maria Anders</td>
+          <td>Obere Str. 57</td>
+          <td>Berlin</td>
+          <td>12209</td>
+          <td>Germany</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Antonio Moreno Taquería</td>
+          <td>Antonio Moreno</td>
+          <td>Mataderos 2312</td>
+          <td>México D.F.</td>
+          <td>05023</td>
+          <td>Mexico</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>Around the Horn</td>
+          <td>Thomas Hardy</td>
+          <td>120 Hanover Sq.</td>
+          <td>London</td>
+          <td>WA1 1DP</td>
+          <td>UK</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>Berglunds snabbköp</td>
+          <td>Christina Berglund</td>
+          <td>Berguvsvägen 8</td>
+          <td>Luleå</td>
+          <td>S-958 22</td>
+          <td>Sweden</td>
+        </tr>
+
+      </tbody>
+    </table>
+				<table data-role="table" data-mode="columntoggle" class="ui-responsive ui-shadow" id="tabel-siswa">
 					<thead>
 						<tr>
 							<th>Nama Siswa</th>
