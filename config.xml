@@ -24,6 +24,7 @@
     <preference name="android-minSdkVersion" value="14" />
     <preference name="android-installLocation" value="auto" />
     <plugin name="cordova-plugin-splashscreen" source="npm" />
+    <plugin name="cordova-plugin-file" source="npm" />
     <icon src="img/icon.png" />
 	<splash src="res/screen/android/splash-port-hdpi.png" />
 	<splash src="res/screen/android/splash-port-ldpi.png" platform="android" qualifier="ldpi" />
