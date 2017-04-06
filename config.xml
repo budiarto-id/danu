@@ -25,7 +25,6 @@
     <preference name="android-installLocation" value="auto" />
     <plugin name="cordova-plugin-splashscreen" source="npm" />
     <plugin name="cordova-plugin-file" source="npm" />
-	<preference name="AndroidPersistentFileLocation" value="Compatibility" />
 	<preference name="AndroidPersistentFileLocation" value="Internal" />
     <icon src="img/icon.png" />
 	<splash src="res/screen/android/splash-port-hdpi.png" />
