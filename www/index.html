@@ -68,6 +68,12 @@
 							</a>
 						</li>	
 						<li class="btn-menu-utama">
+							<a href="#komponen-penilaian-page">
+								<img src="img/Icon%20Materi/merchandise.png" alt="">
+								<h2><b>KOMPONEN PENILAIAN</b></h2>
+							</a>
+						</li>	
+						<li class="btn-menu-utama">
 							<a href="#about-page">
 								<img src="img/Icon%20Materi/about.png" alt="">
 								<h2><b>TENTANG</b></h2>
@@ -175,22 +181,6 @@
 						</tr>
 					</thead>
 					<tbody id="tabel-daftar-siswa">
-						<!--<tr>
-							<td>Alfreds Futterkiste Ajhgh Anjh Abhhhbhjhj</td>
-							<td><a href="#" data-role="button" data-icon="edit" data-theme="b">Ubah</a><a href="#" data-role="button" data-icon="delete" data-theme="b">Hapus</a></td>
-						</tr>
-						<tr>
-							<td>Antonio Moreno Taquería</td>
-							<td><a href="#" data-role="button" data-icon="plus" data-theme="b"></a><a href="#" data-role="button" data-icon="plus" data-theme="b"></a></td>
-						</tr>
-						<tr>
-							<td>Around the Horn</td>
-							<td><a href="#" data-role="button" data-icon="plus" data-theme="b"></a><a href="#" data-role="button" data-icon="plus" data-theme="b"></a></td>
-						</tr>
-						<tr>
-							<td>Berglunds snabbköp</td>
-							<td><a href="#" data-role="button" data-icon="plus" data-theme="b"></a><a href="#" data-role="button" data-icon="plus" data-theme="b"></a></td>
-						</tr>-->
 					</tbody>
 				</table>
             </div>
@@ -217,6 +207,28 @@
             </div>
         </div><!-- /page  -->
 		
+		<!-- Komponen Penilaian Page -->
+		<div id="komponen-penilaian-page" data-role="page" style="background: url('img/bg/bg-profil.png'); background-repeat: repeat-x repeat-y;">
+			<div data-role="header" data-position="fixed" data-tap-toggle="false" data-transition="none" data-id="header">
+				<a href="#" data-rel="back" data-role="button" data-icon="arrow-l" data-inline="true" >Back</a>
+				<h1>Komponen Penilaian</h1>
+            </div>
+            <div data-role="content" style="font-size: 16px;">
+				<a href="#" data-role="button" data-icon="plus" data-theme="b">Tambah Komponen</a>
+				<table data-role="table" data-mode="columntoggle" class="ui-responsive ui-shadow" id="myTable">
+					<thead>
+						<tr>
+							<th>Komponen</th>
+							<th>Bobot</th>
+							<th>Aksi</th>
+						</tr>
+					</thead>
+					<tbody id="tabel-daftar-mapel">
+					</tbody>
+				</table>
+            </div>
+        </div><!-- /page  -->
+		
 		<!-- Daftar Mapel Page -->
 		<div id="daftar-jurusan-page" data-role="page" style="background: url('img/bg/bg-profil.png'); background-repeat: repeat-x repeat-y;">
 			<div data-role="header" data-position="fixed" data-tap-toggle="false" data-transition="none" data-id="header">
@@ -224,7 +236,7 @@
 				<h1>Daftar Jurusan</h1>
             </div>
             <div data-role="content" style="font-size: 16px;">
-				<a href="#" data-role="button" data-icon="plus" data-theme="b">Tambah Jurusan</a>
+				<a href="#frm-add-jurusan" data-rel="popup" data-position-to="window" data-role="button" data-icon="plus" data-theme="b">Tambah Jurusan</a>
 				<table data-role="table" data-mode="columntoggle" class="ui-responsive ui-shadow" id="myTable">
 					<thead>
 						<tr>
@@ -236,6 +248,26 @@
 					</tbody>
 				</table>
             </div>
+			<div data-role="popup" id="frm-add-jurusan" data-theme="b" class="ui-corner-all">
+				<div data-role="header">
+					<h1>Tambah Jurusan</h1>
+				</div>
+				<div data-role="content">
+		            <label for="un">Jurusan:</label>
+		            <input type="text" name="user" id="un" value="" placeholder="Nama Jurusan">
+					<a href="#" data-rel="back" data-role="button" data-icon="arrow-check" onmousedown="exeSQL('INSERT INTO tblJurusan VALUES(null,\''+$('#un').val()+'\')');showDaftarJurusan()">Simpan</a>
+	        	</div>
+			</div>
+			<div data-role="popup" id="frm-edit-jurusan" data-theme="b" class="ui-corner-all" data-position-to="window">
+				<div data-role="header">
+					<h1>Ubah</h1>
+				</div>
+				<div data-role="content">
+		            <label for="un">Jurusan:</label>
+		            <input type="text" name="user" id="un-update" value="" placeholder="Nama Jurusan">
+					<a href="#" data-rel="back" data-role="button" data-icon="arrow-check" onmousedown="exeSQL('INSERT INTO tblJurusan VALUES(null,\''+$('#un').val()+'\')');showDaftarJurusan()">Simpan</a>
+	        	</div>
+			</div>
         </div><!-- /page  -->
 		
 		<!-- Daftar Mapel Page -->

@@ -118,7 +118,7 @@ function showDaftarJurusan(){
 			}
 			for (var i = 0, item = null; i < dataset.length; i++) {
 				item = dataset.item(i);
-				var dataSiswa = "<tr><td>"+item['txtJurusan']+"</td><td><a href='#' data-theme='b' class='ui-btn ui-icon-edit ui-btn-icon-notext ui-corner-all ui-btn-hover-b ui-btn-up-b'></a><a href='#' data-theme='b' class='ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all ui-btn-hover-b ui-btn-up-b'></a></td></tr>"
+				var dataSiswa = "<tr><td>"+item['txtJurusan']+"</td><td><a href='#frm-edit-jurusan' data-rel='popup' data-theme='b' class='ui-btn ui-icon-edit ui-btn-icon-notext ui-corner-all ui-btn-hover-b ui-btn-up-b'></a><a href='#' data-theme='b' class='ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all ui-btn-hover-b ui-btn-up-b'></a></td></tr>"
 				$("#tabel-daftar-jurusan").append(dataSiswa);
 			}
 		});
@@ -146,6 +146,11 @@ function showDaftarMapel(){
 function eksekusiSQL(){
 	sqlStatement = $("#txtSQL").val();
 	db.transaction(function (tx) { tx.executeSql(sqlStatement, [], alert("SQL Success"), onError); });
+}
+function exeSQL(sqlStatement){
+	//sqlStatement = $("#txtSQL").val();
+	//alert(sqlStatement);
+	db.transaction(function (tx) { tx.executeSql(sqlStatement, [], console.log("SQL Success"), onError); });
 }
 
 $(document).ready(function (){
