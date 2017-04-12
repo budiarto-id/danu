@@ -263,9 +263,10 @@
 					<h1>Ubah</h1>
 				</div>
 				<div data-role="content">
+					<input type="hidden" id="idJurusan-update">
 		            <label for="un">Jurusan:</label>
 		            <input type="text" name="user" id="un-update" value="" placeholder="Nama Jurusan">
-					<a href="#" data-rel="back" data-role="button" data-icon="arrow-check" onmousedown="exeSQL('INSERT INTO tblJurusan VALUES(null,\''+$('#un').val()+'\')');showDaftarJurusan()">Simpan</a>
+					<a href="#" data-rel="back" data-role="button" data-icon="arrow-check" onmousedown="exeSQL('UPDATE tblJurusan SET txtJurusan=\''+$('#un-update').val()+'\' WHERE idJurusan=\''+$('#idJurusan-update').val()+'\'');showDaftarJurusan()">Simpan</a>
 	        	</div>
 			</div>
         </div><!-- /page  -->

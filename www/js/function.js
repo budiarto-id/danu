@@ -118,7 +118,7 @@ function showDaftarJurusan(){
 			}
 			for (var i = 0, item = null; i < dataset.length; i++) {
 				item = dataset.item(i);
-				var dataSiswa = "<tr><td>"+item['txtJurusan']+"</td><td><a href='#frm-edit-jurusan' data-rel='popup' data-theme='b' class='ui-btn ui-icon-edit ui-btn-icon-notext ui-corner-all ui-btn-hover-b ui-btn-up-b'></a><a href='#' data-theme='b' class='ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all ui-btn-hover-b ui-btn-up-b'></a></td></tr>"
+				var dataSiswa = "<tr><td>"+item['txtJurusan']+"</td><td><a href='#frm-edit-jurusan' data-rel='popup' data-theme='b' class='ui-btn ui-icon-edit ui-btn-icon-notext ui-corner-all ui-btn-hover-b ui-btn-up-b' onmousedown='$(\"#idJurusan-update\").val(\""+item['idJurusan']+"\");$(\"#un-update\").val(\""+item['txtJurusan']+"\")'></a><a href='#' data-theme='b' class='ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all ui-btn-hover-b ui-btn-up-b'></a></td></tr>"
 				$("#tabel-daftar-jurusan").append(dataSiswa);
 			}
 		});
