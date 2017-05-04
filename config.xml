@@ -25,6 +25,13 @@
     <preference name="android-installLocation" value="auto" />
     <plugin name="cordova-plugin-splashscreen" source="npm" />
     <plugin name="cordova-plugin-file" source="npm" />
+	<feature name="File">
+		<param name="android-package" value="org.apache.cordova.file.FileUtils" />
+	</feature>
+    <plugin name="cordova-plugin-file-transfer" source="npm" />
+	<feature name="FileTransfer">
+		<param name="android-package" value="org.apache.cordova.filetransfer.FileTransfer" />
+	</feature>
 	<preference name="AndroidPersistentFileLocation" value="Internal" />
 	<preference name="AndroidExtraFilesystems" value="files,files-external,documents,sdcard,cache,cache-external,assets,root" />
     <icon src="img/icon.png" />

@@ -26,14 +26,14 @@
 
     function gotFileWriter(writer) {
         writer.onwriteend = function(evt) {
-            console.log("contents of file now 'some sample text'");
+            alert("contents of file now 'some sample text'");
             writer.truncate(11);
             writer.onwriteend = function(evt) {
-                console.log("contents of file now 'some sample'");
+                alert("contents of file now 'some sample'");
                 writer.seek(4);
                 writer.write(" different text");
                 writer.onwriteend = function(evt){
-                    console.log("contents of file now 'some different text'");
+                    alert("contents of file now 'some different text'");
                 }
             };
         };
@@ -41,7 +41,7 @@
     }
 
     function fail(error) {
-        console.log(error.code);
+        alert(error.code);
     }
 
     </script>
