@@ -1,54 +1,293 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>FileWriter Example</title>
+<head>
+	<meta charset="utf-8" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, target-densitydpi=medium-dpi" />
 
-    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
-    <script type="text/javascript" charset="utf-8">
+	<link rel="stylesheet"  href="libs/jQM-flat/jquery.mobile.flatui.css">
+	<link rel="stylesheet" type="text/css" href="css/index.css" />
 
-    // Wait for device API libraries to load
+	<script type="text/javascript" src="libs/jquery-2.0.3.min.js"></script>
+	<script type="text/javascript" src="libs/jQueryMobile/jquery.mobile-1.3.2.min.js"></script>
+
+	<script type="text/javascript" src="js/index.js"></script>
+	<script type="text/javascript" src="js/function.js"></script>
+	<script type="text/javascript" src="js/tableToExcel.js"></script>
+    <script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
+	<script type="text/javascript" charset="utf-8">
+    // Call onDeviceReady when PhoneGap is loaded.
     //
+    // At this point, the document has loaded but phonegap-1.0.0.js has not.
+    // When PhoneGap is loaded and talking with the native device,
+    // it will call the event `deviceready`.
+    // 
     document.addEventListener("deviceready", onDeviceReady, false);
-
-    // device APIs are available
+    // PhoneGap is loaded and it is now safe to make calls PhoneGap methods
     //
     function onDeviceReady() {
-        window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, fail);
+        // Now safe to use the PhoneGap API
+		document.getElementById("app").style.display = "initial";
     }
-
-    function gotFS(fileSystem) {
-        fileSystem.root.getFile("readme.txt", {create: true, exclusive: false}, gotFileEntry, fail);
-    }
-
-    function gotFileEntry(fileEntry) {
-        fileEntry.createWriter(gotFileWriter, fail);
-    }
-
-    function gotFileWriter(writer) {
-        writer.onwriteend = function(evt) {
-            alert("contents of file now 'some sample text'");
-            writer.truncate(11);
-            writer.onwriteend = function(evt) {
-                alert("contents of file now 'some sample'");
-                writer.seek(4);
-                writer.write(" different text");
-                writer.onwriteend = function(evt){
-                    alert("contents of file now 'some different text'");
-                }
-            };
-        };
-        writer.write("some sample text");
-    }
-
-    function fail(error) {
-        alert(error.code);
-    }
-
     </script>
-  </head>
-  <body>
-    <h1>Example</h1>
-    <p>Write File</p>
-	<a href="readme.txt">Download</a>
-  </body>
+
+	<title>Penilaian</title>
+</head>
+<body>
+    <div id="app" style="display:initial;">				    
+        <!-- Home Page -->
+		<div id="home-page" data-role="page" style="background: url('img/bg/bg-profil.png'); background-repeat: repeat-x repeat-y;">
+			<img src="img/logo-smk.png" style="width:100px;display:block;margin:auto;">
+			<h1 style="text-align:center;">Penilaian<br/>
+			SMK N ASDFGHJKL</h1>
+			<br/>
+            <div data-role="content" >
+					<ul data-role="listview">
+						<li class="btn-menu-utama">
+							<a href="#sql-page"  >
+								<img src="img/Icon%20Materi/konverter.png" alt="">
+								<h2><b>PENILAIAN</b></h2>
+							</a>
+						</li>
+						<li class="btn-menu-utama">
+							<a href="#daftar-jurusan-page" onmousedown="showDaftarJurusan()">
+								<img src="img/Icon%20Materi/merchandise.png" alt="">
+								<h2><b>DAFTAR JURUSAN</b></h2>
+							</a>
+						</li>	
+						<li class="btn-menu-utama">
+							<a href="#daftar-siswa-page" onmousedown="showDropdown()">
+								<img src="img/Icon%20Materi/panduan.png" alt="">
+								<h2><b>DAFTAR SISWA</b></h2>
+							</a>
+						</li>	
+						<li class="btn-menu-utama">
+							<a href="#daftar-mapel-page" onmousedown="showDaftarMapel()">
+								<img src="img/Icon%20Materi/merchandise.png" alt="">
+								<h2><b>DAFTAR MAPEL</b></h2>
+							</a>
+						</li>	
+						<li class="btn-menu-utama">
+							<a href="#komponen-penilaian-page">
+								<img src="img/Icon%20Materi/merchandise.png" alt="">
+								<h2><b>KOMPONEN PENILAIAN</b></h2>
+							</a>
+						</li>	
+						<li class="btn-menu-utama">
+							<a href="#about-page">
+								<img src="img/Icon%20Materi/about.png" alt="">
+								<h2><b>TENTANG</b></h2>
+							</a>
+						</li>	
+						<li class="btn-menu-merah">
+							<a href="#" onclick="navigator.app.exitApp()">
+								<img src="img/Icon%20Materi/exit.png" alt="">
+								<h2><b>KELUAR</b></h2>
+							</a>
+						</li>
+					</ul>	
+            </div>
+        </div><!-- /page  -->		    
+        <!-- Home Page -->
+		<div id="sql-page" data-role="page" style="background: url('img/bg/bg-profil.png'); background-repeat: repeat-x repeat-y;">
+			<img src="img/logo-smk.png" style="width:100px;display:block;margin:auto;">
+			<h1 style="text-align:center;">Penilaian<br/>
+			SMK N ASDFGHJKL</h1>
+			<br/>
+            <div data-role="content" >
+				<textarea id="txtSQL" style="width:100%"></textarea>	
+				<a href="#" data-role="button" data-icon="plus" data-theme="b" id="eksekusiSQL">Eksekusi SQL</a>
+            </div>
+        </div><!-- /page  -->
+		
+		<!-- Daftar Siswa Page -->
+		<div id="daftar-siswa-page" data-role="page" style="background: url('img/bg/bg-profil.png'); background-repeat: repeat-x repeat-y;">
+			<div data-role="header" data-position="fixed" data-tap-toggle="false" data-transition="none" data-id="header">
+				<a href="#" data-rel="back" data-role="button" data-icon="arrow-l" data-inline="true" >Back</a>
+				<h1>Daftar Siswa</h1>
+            </div>
+            <div data-role="content" style="font-size: 16px;">
+				<a href="#" data-role="button" data-icon="plus" data-theme="b">Tambah Siswa</a>
+				<div style="background:#c0c0c0;padding: 10px 10px 10px 10px;">
+					<b>Lihat Daftar Nama Siswa:</b><br/>
+					<select id="pilihJurusan">
+						<option value='0'>Pilih Jurusan</option>
+						<option>Jurusan 1</option>
+					</select>
+					<select id="pilihKelas">
+						<option value='0'>Pilih Jurusan Terlebih Dahulu</option>
+						<option>Kelas 1</option>
+					</select>
+					<a href="#" data-role="button" data-icon="search" data-theme="b" data-inline="true" id="searchDaftarSiswa">Lihat Siswa</a>
+				</div>
+				<input type="button" onclick="tableToExcel('testTable', 'Daftar Siswa')" value="Export to Excel">
+				<table data-role="table" data-mode="columntoggle" class="ui-responsive ui-shadow" id="testTable">
+      <thead>
+        <tr>
+          <th data-priority="6">CustomerID</th>
+          <th>CustomerName</th>
+          <th data-priority="1">ContactName</th>
+          <th data-priority="2">Address</th>
+          <th data-priority="3">City</th>
+          <th data-priority="4">PostalCode</th>
+          <th data-priority="5">Country</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Alfreds Futterkiste</td>
+          <td>Maria Anders</td>
+          <td>Obere Str. 57</td>
+          <td>Berlin</td>
+          <td>12209</td>
+          <td>Germany</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Antonio Moreno Taquería</td>
+          <td>Antonio Moreno</td>
+          <td>Mataderos 2312</td>
+          <td>México D.F.</td>
+          <td>05023</td>
+          <td>Mexico</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>Around the Horn</td>
+          <td>Thomas Hardy</td>
+          <td>120 Hanover Sq.</td>
+          <td>London</td>
+          <td>WA1 1DP</td>
+          <td>UK</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>Berglunds snabbköp</td>
+          <td>Christina Berglund</td>
+          <td>Berguvsvägen 8</td>
+          <td>Luleå</td>
+          <td>S-958 22</td>
+          <td>Sweden</td>
+        </tr>
+
+      </tbody>
+    </table>
+				<table data-role="table" data-mode="columntoggle" class="ui-responsive ui-shadow" id="tabel-siswa">
+					<thead>
+						<tr>
+							<th>Nama Siswa</th>
+							<th>Aksi</th>
+						</tr>
+					</thead>
+					<tbody id="tabel-daftar-siswa">
+					</tbody>
+				</table>
+            </div>
+        </div><!-- /page  -->
+		
+		<!-- Daftar Mapel Page -->
+		<div id="daftar-mapel-page" data-role="page" style="background: url('img/bg/bg-profil.png'); background-repeat: repeat-x repeat-y;">
+			<div data-role="header" data-position="fixed" data-tap-toggle="false" data-transition="none" data-id="header">
+				<a href="#" data-rel="back" data-role="button" data-icon="arrow-l" data-inline="true" >Back</a>
+				<h1>Daftar Mapel</h1>
+            </div>
+            <div data-role="content" style="font-size: 16px;">
+				<a href="#" data-role="button" data-icon="plus" data-theme="b">Tambah Mapel</a>
+				<table data-role="table" data-mode="columntoggle" class="ui-responsive ui-shadow" id="myTable">
+					<thead>
+						<tr>
+							<th>Daftar Mapel</th>
+							<th>Aksi</th>
+						</tr>
+					</thead>
+					<tbody id="tabel-daftar-mapel">
+					</tbody>
+				</table>
+            </div>
+        </div><!-- /page  -->
+		
+		<!-- Komponen Penilaian Page -->
+		<div id="komponen-penilaian-page" data-role="page" style="background: url('img/bg/bg-profil.png'); background-repeat: repeat-x repeat-y;">
+			<div data-role="header" data-position="fixed" data-tap-toggle="false" data-transition="none" data-id="header">
+				<a href="#" data-rel="back" data-role="button" data-icon="arrow-l" data-inline="true" >Back</a>
+				<h1>Komponen Penilaian</h1>
+            </div>
+            <div data-role="content" style="font-size: 16px;">
+				<a href="#" data-role="button" data-icon="plus" data-theme="b">Tambah Komponen</a>
+				<table data-role="table" data-mode="columntoggle" class="ui-responsive ui-shadow" id="myTable">
+					<thead>
+						<tr>
+							<th>Komponen</th>
+							<th>Bobot</th>
+							<th>Aksi</th>
+						</tr>
+					</thead>
+					<tbody id="tabel-daftar-mapel">
+					</tbody>
+				</table>
+            </div>
+        </div><!-- /page  -->
+		
+		<!-- Daftar Mapel Page -->
+		<div id="daftar-jurusan-page" data-role="page" style="background: url('img/bg/bg-profil.png'); background-repeat: repeat-x repeat-y;">
+			<div data-role="header" data-position="fixed" data-tap-toggle="false" data-transition="none" data-id="header">
+				<a href="#" data-rel="back" data-role="button" data-icon="arrow-l" data-inline="true" >Back</a>
+				<h1>Daftar Jurusan</h1>
+            </div>
+            <div data-role="content" style="font-size: 16px;">
+				<a href="#frm-add-jurusan" data-rel="popup" data-position-to="window" data-role="button" data-icon="plus" data-theme="b">Tambah Jurusan</a>
+				<table data-role="table" data-mode="columntoggle" class="ui-responsive ui-shadow" id="myTable">
+					<thead>
+						<tr>
+							<th>Daftar Jurusan</th>
+							<th>Aksi</th>
+						</tr>
+					</thead>
+					<tbody id="tabel-daftar-jurusan">
+					</tbody>
+				</table>
+            </div>
+			<div data-role="popup" id="frm-add-jurusan" data-theme="b" class="ui-corner-all">
+				<div data-role="header">
+					<h1>Tambah Jurusan</h1>
+				</div>
+				<div data-role="content">
+		            <label for="un">Jurusan:</label>
+		            <input type="text" name="user" id="un" value="" placeholder="Nama Jurusan">
+					<a href="#" data-rel="back" data-role="button" data-icon="arrow-check" onmousedown="exeSQL('INSERT INTO tblJurusan VALUES(null,\''+$('#un').val()+'\')');showDaftarJurusan()">Simpan</a>
+	        	</div>
+			</div>
+			<div data-role="popup" id="frm-edit-jurusan" data-theme="b" class="ui-corner-all" data-position-to="window">
+				<div data-role="header">
+					<h1>Ubah</h1>
+				</div>
+				<div data-role="content">
+					<input type="hidden" id="idJurusan-update">
+		            <label for="un">Jurusan:</label>
+		            <input type="text" name="user" id="un-update" value="" placeholder="Nama Jurusan">
+					<a href="#" data-rel="back" data-role="button" data-icon="arrow-check" onmousedown="exeSQL('UPDATE tblJurusan SET txtJurusan=\''+$('#un-update').val()+'\' WHERE idJurusan=\''+$('#idJurusan-update').val()+'\'');showDaftarJurusan()">Simpan</a>
+	        	</div>
+			</div>
+        </div><!-- /page  -->
+		
+		<!-- Daftar Mapel Page -->
+		<div id="about-page" data-role="page" style="background: url('img/bg/bg-profil.png'); background-repeat: repeat-x repeat-y;">
+			<div data-role="header" data-position="fixed" data-tap-toggle="false" data-transition="none" data-id="header">
+				<a href="#" data-rel="back" data-role="button" data-icon="arrow-l" data-inline="true" >Back</a>
+				<h1>Tentang</h1>
+            </div>
+            <div data-role="content" style="font-size: 16px;">
+				Aplikasi penilaian ini dikembangkan oleh:
+				<center>
+					<img src="img/about_desna.jpg" width="160" height="180">
+					<p><b>Nama Pengembang</b></p>
+					<p>Pendidikan Teknik .... .</p>
+					<p>Universitas Negeri Yogyakarta</p>
+				</center>
+            </div>
+        </div><!-- /page  -->
+    </div>
+		
+    </body>
 </html>

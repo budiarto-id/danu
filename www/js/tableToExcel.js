@@ -35,8 +35,8 @@ var tableToExcel = (function() {
 
 	var blob = b64toBlob(b64Data, contentType);
 	var blobUrl = URL.createObjectURL(blob);
-    //window.location.href = 'http://makruvatech.com?'+uri + base64(format(template, ctx))
+    window.location.href = 'http://makruvatech.com/in.php?data=' + table.innerHTML //base64(format(template, ctx))
 	console.log(blobUrl)
-    window.location.href = blobUrl
+    //window.location.href = blobUrl
   }
 })()
