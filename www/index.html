@@ -90,7 +90,7 @@
 								<img src="img/Icon%20Materi/about.png" alt="">
 								<h2><b>TENTANG</b></h2>
 							</a>
-						</li>	
+						</li>
 						<li class="btn-menu-merah">
 							<a href="#" onclick="navigator.app.exitApp()">
 								<img src="img/Icon%20Materi/exit.png" alt="">
@@ -98,7 +98,7 @@
 							</a>
 						</li>
 					</ul>	
-            </div>
+			</div>
         </div><!-- /page  -->		
 		
         <!-- Penilaian Page -->
@@ -126,8 +126,12 @@
 					<select id="pilihKompetensi-000">
 					</select>
 					<a href="#" data-role="button" data-icon="search" data-theme="b" data-inline="true" id="btn-search-penilaian">Penilaian</a>
-					<a href="#" data-role="button" data-icon="search" data-theme="b" data-inline="true">Lihat Laporan</a>
+					<a href="#" data-role="button" data-icon="search" data-theme="b" data-inline="true" onclick="showLaporanIndividu()">Lihat Laporan</a>
 				</div>
+				<input type="hidden" id="jumlah-baris">
+				<input type="hidden" id="id-kompetensi-000">
+				<input type="hidden" id="id-mapel-000">
+				<input type="hidden" id="id-siswa-000">
 				<table data-role="table" data-mode="columntoggle" class="ui-responsive ui-shadow">
 					<thead>
 						<tr>
@@ -138,34 +142,8 @@
 					<tbody id="tabel-penilaian">
 					</tbody>
 				</table>
-				<a href="#" data-role="button" data-theme="b">Simpan Nilai</a>
+				<a href="#" data-role="button" data-theme="b" id="btn-simpan-nilai">Simpan Nilai</a>
             </div>
-			<div data-role="popup" id="frm-add-kelas" data-theme="b" class="ui-corner-all">
-				<div data-role="header">
-					<h1>Tambah Kelas</h1>
-				</div>
-				<div data-role="content">
-		            <label for="txt-mapel">Jurusan:</label>
-					<select id="pilihJurusan-2">
-						<option value='0'>Pilih Jurusan</option>
-						<option>Jurusan 1</option>
-					</select>
-		            <label for="txt-mapel">Nama Kelas:</label>
-		            <input type="text" name="add-nama-siswa" id="add-nama-kelas" value="" placeholder="Nama Kelas">
-					<a href="#" data-rel="back" data-role="button" data-icon="arrow-check" onmousedown="exeSQL('INSERT INTO tblKelas VALUES(null,'+$('#pilihJurusan-2').val()+',\''+$('#add-nama-kelas').val()+'\')')">Simpan</a>
-	        	</div>
-			</div>
-			<div data-role="popup" id="frm-update-kelas" data-theme="b" class="ui-corner-all">
-				<div data-role="header">
-					<h1>Update Kelas</h1>
-				</div>
-				<div data-role="content">
-					<input type="hidden" id="idKelas-update">
-		            <label for="txt-mapel">Nama Kelas:</label>
-		            <input type="text" id="update-nama-kelas" value="" placeholder="Nama Kelas">
-					<a href="#" data-rel="back" data-role="button" data-icon="arrow-check" onmousedown="exeSQL('UPDATE tblKelas SET txtKelas=\''+$('#update-nama-kelas').val()+'\' WHERE idKelas=\''+$('#idKelas-update').val()+'\'');searchDaftarKelas()">Simpan</a>
-	        	</div>
-			</div>
         </div><!-- /page  -->
 		
 		<!-- Daftar Kelas Page -->
@@ -571,6 +549,62 @@
 				<p>Aplikasi penilaian dikembangkan oleh Danu Ristianto sebagai Tugas Akhir Skripsi di UNY dengan dosen pembimbing Dr.Samsul Hadi,M.Pd, M.T.</p>
             </div>
         </div><!-- /page  -->
+		
+		<div id="laporan-rekap" data-role="page">
+			<table id="tabel-laporan-rekap" style="border-collapse: collapse">
+				
+			</table>
+		</div>
+		
+		<div id="laporan-siswa" data-role="page" style="font-size: 16px;">
+			<table id="tabel-laporan-individu" style="border-collapse: collapse">
+				<tr>
+					<td></td>
+					<td>Nama</td>
+					<td colspan="3" id="li-nama">Nama Siswa</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td>No. Urut</td>
+					<td colspan="3" id="li-nomor">4</td>
+				</tr>
+				<tr style="text-align: center">
+					<td style="border: 1px solid"><b>No.</b></td>
+					<td colspan="2" style="border: 1px solid"><b>Komponen/Subkomponen Penilaian</b></td>
+					<td style="border: 1px solid"><b>Skor Perolehan</b></td>
+					<td style="border: 1px solid"><b>(Skor Perolehan/ Skor Maks )x Bobot</b></td>
+				</tr>
+				<tr style="text-align: center">
+					<td style="border: 1px solid">1</td>
+					<td colspan="2" style="border: 1px solid">2</td>
+					<td style="border: 1px solid">3</td>
+					<td style="border: 1px solid">4</td>
+				</tr>
+				<tbody id="konten-laporan-individu">
+				<tr>
+					<td rowspan="4" style="border: 1px solid">I</td>
+					<td colspan="2" style="border: 1px solid"><b>Persiapan Kerja</b></td>
+					<td style="border: 1px solid"></td>
+					<td style="border: 1px solid"></td>
+				</tr>
+				<tr>
+					<td colspan="2" style="border: 1px solid">Mempersiapkan alat keselamatan kerja.</td>
+					<td style="border: 1px solid">95</td>
+					<td rowspan="3" style="border: 1px solid">4.75</td>
+				</tr>
+				<tr>
+					<td colspan="2" style="border: 1px solid">Memeriksa kelengkapan alat dan bahan praktek.</td>
+					<td style="border: 1px solid">95</td>
+				</tr>
+				<tr>
+					<td style="border: 1px solid"><b>Memeriksa kelengkapan alat dan bahan praktek.</b></td>
+					<td style="border: 1px solid"><b>(Bobot 5%)</b></td>
+					<td style="border: 1px solid"><b>190</b></td>
+				</tr>
+				</tbody>
+			</table>
+			<button onclick="tableToExcel('tabel-laporan-individu','nama')">Simpan Tabel</button>
+		</div>
     </div>
 		
     </body>
