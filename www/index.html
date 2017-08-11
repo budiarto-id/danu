@@ -45,61 +45,67 @@
 					<ul data-role="listview">
 						<li class="btn-menu-utama">
 							<a href="#penilaian-page" onmousedown="showDropdownPenilaian()">
-								<img src="img/Icon%20Materi/konverter.png" alt="">
+								<img src="img/icon/penilaian.png" alt="">
 								<h2><b>PENILAIAN</b></h2>
 							</a>
 						</li>
 						<li class="btn-menu-utama">
 							<a href="#daftar-jurusan-page" onmousedown="showDaftarJurusan()">
-								<img src="img/Icon%20Materi/merchandise.png" alt="">
+								<img src="img/icon/jurusan.png" alt="">
 								<h2><b>DAFTAR JURUSAN</b></h2>
 							</a>
 						</li>
 						<li class="btn-menu-utama">
 							<a href="#daftar-kelas-page" onmousedown="showDropdown()">
-								<img src="img/Icon%20Materi/merchandise.png" alt="">
+								<img src="img/icon/kelas.png" alt="">
 								<h2><b>DAFTAR KELAS</b></h2>
 							</a>
 						</li>	
 						<li class="btn-menu-utama">
 							<a href="#daftar-siswa-page" onmousedown="showDropdown()">
-								<img src="img/Icon%20Materi/panduan.png" alt="">
+								<img src="img/icon/siswa.png" alt="">
 								<h2><b>DAFTAR SISWA</b></h2>
 							</a>
 						</li>	
 						<li class="btn-menu-utama">
 							<a href="#daftar-mapel-page" onmousedown="showDaftarMapel()">
-								<img src="img/Icon%20Materi/merchandise.png" alt="">
+								<img src="img/icon/mapel.png" alt="">
 								<h2><b>DAFTAR MAPEL</b></h2>
 							</a>
 						</li>	
 						<li class="btn-menu-utama">
 							<a href="#daftar-kompetensi-page" onmousedown="showDropdownMapel()">
-								<img src="img/Icon%20Materi/merchandise.png" alt="">
+								<img src="img/icon/kompetensi.png" alt="">
 								<h2><b>DAFTAR KOMPETENSI</b></h2>
 							</a>
 						</li>
 						<li class="btn-menu-utama">
 							<a href="#komponen-penilaian-page" onmousedown="showDropdownKomponen()">
-								<img src="img/Icon%20Materi/merchandise.png" alt="">
+								<img src="img/icon/komponen.png" alt="">
 								<h2><b>KOMPONEN PENILAIAN</b></h2>
 							</a>
 						</li>	
 						<li class="btn-menu-utama">
+							<a href="#petunjuk-page">
+								<img src="img/icon/bantuan.png" alt="">
+								<h2><b>PETUNJUK</b></h2>
+							</a>
+						</li>
+						<li class="btn-menu-utama">
 							<a href="#about-page">
-								<img src="img/Icon%20Materi/about.png" alt="">
+								<img src="img/icon/tentang.png" alt="">
 								<h2><b>TENTANG</b></h2>
 							</a>
 						</li>
 						<li class="btn-menu-merah">
 							<a href="#" onclick="navigator.app.exitApp()">
-								<img src="img/Icon%20Materi/exit.png" alt="">
+								<img src="img/icon/exit.png" alt="">
 								<h2><b>KELUAR</b></h2>
 							</a>
 						</li>
 					</ul>	
 			</div>
-        </div><!-- /page  -->		
+        </div><!-- /page  -->	
 		
         <!-- Penilaian Page -->
 		<div id="penilaian-page" data-role="page" style="background: url('img/bg/bg-profil.png'); background-repeat: repeat-x repeat-y;">
@@ -127,6 +133,7 @@
 					</select>
 					<a href="#" data-role="button" data-icon="search" data-theme="b" data-inline="true" id="btn-search-penilaian">Penilaian</a>
 					<a href="#" data-role="button" data-icon="search" data-theme="b" data-inline="true" onclick="showLaporanIndividu()">Lihat Laporan</a>
+					<a href="#" data-role="button" data-icon="search" data-theme="b" data-inline="true" onclick="showLaporanRekap()">Lihat Laporan Kelas</a>
 				</div>
 				<input type="hidden" id="jumlah-baris">
 				<input type="hidden" id="id-kompetensi-000">
@@ -250,9 +257,9 @@
 						<option>Jurusan 1</option>
 					</select>
 		            <label for="txt-mapel">No. Urut Siswa:</label>
-		            <input type="number" name="add-no-urut" id="add-no-urut" value="" placeholder="Nama Jurusan">
+		            <input type="number" name="add-no-urut" id="add-no-urut" value="" placeholder="no urut">
 		            <label for="txt-mapel">Nama Siswa:</label>
-		            <input type="text" name="add-nama-siswa" id="add-nama-siswa" value="" placeholder="Nama Jurusan">
+		            <input type="text" name="add-nama-siswa" id="add-nama-siswa" value="" placeholder="nama siswa">
 					<a href="#" data-rel="back" data-role="button" data-icon="arrow-check" onmousedown="exeSQL('INSERT INTO tblSiswa VALUES(null,'+$('#pilihKelas-1').val()+','+$('#add-no-urut').val()+',\''+$('#add-nama-siswa').val()+'\')')">Simpan</a>
 	        	</div>
 			</div>
@@ -273,9 +280,9 @@
 						<option>Jurusan 1</option>
 					</select>
 		            <label for="txt-mapel">No. Urut Siswa:</label>
-		            <input type="number" name="add-no-urut" id="update-no-urut" value="" placeholder="Nama Jurusan">
+		            <input type="number" name="add-no-urut" id="update-no-urut" value="" placeholder="no urut">
 		            <label for="txt-mapel">Nama Siswa:</label>
-		            <input type="text" name="add-nama-siswa" id="update-nama-siswa" value="" placeholder="Nama Jurusan"> 
+		            <input type="text" name="add-nama-siswa" id="update-nama-siswa" value="" placeholder="nama siswa"> 
 					<a href="#" data-rel="back" data-role="button" data-icon="arrow-check" onmousedown="exeSQL('UPDATE tblSiswa SET idKelas='+$('#pilihKelas-update-siswa').val()+', noUrut='+$('#update-no-urut').val()+', txtNamaSiswa=\''+$('#update-nama-siswa').val()+'\' WHERE idSiswa=\''+$('#idSiswa-update').val()+'\''); searchDaftarSiswa();">Simpan</a>
 	        	</div>
 			</div>
@@ -545,15 +552,54 @@
 				<h1>Tentang</h1>
             </div>
             <div data-role="content" style="font-size: 16px;">
+				<center><img src="img/icon.png"/></center>
 				<p>Aplikasi ini dirancang untuk mempermudah guru SMK dalam penilaian praktik pada mata pelajaran produktif. Aplikasi ini terdiri dari 5 komponen penilaian yang disesuaikan dengan panduan penilaian untuk SMK tahun 2015 yang terdiri dari: persiapan, proses kerja, hasil kerja, sikap kerja,dan waktu. untuk sub komponen dapat diisi sesuai dengan penilaian yang akan dilakukan.</p>
 				<p>Aplikasi penilaian dikembangkan oleh Danu Ristianto sebagai Tugas Akhir Skripsi di UNY dengan dosen pembimbing Dr.Samsul Hadi,M.Pd, M.T.</p>
+				<hr/>
+				<small>Ikon dari <a href="http://flaticon.com">Flaticon</a></small>
             </div>
         </div><!-- /page  -->
 		
 		<div id="laporan-rekap" data-role="page">
+			<div id="hidden">
+			</div>
+			<input type="hidden" id="nilai-j">
 			<table id="tabel-laporan-rekap" style="border-collapse: collapse">
-				
+				<tr style="text-align: center">
+					<td rowspan="2" style="border: 1px solid"><b>NO</b></td>
+					<td rowspan="2" style="border: 1px solid"><b>NO PESERTA</b></td>
+					<td rowspan="2" style="border: 1px solid"><b>NAMA</b></td>
+					<td colspan="2" style="border: 1px solid"><b>NILAI</b></td>
+				</tr>
+				<tr style="text-align: center">
+					<td style="border: 1px solid"><b>ANGKA</b></td>
+					<td style="border: 1px solid"><b>HURUF</b></td>
+				</tr>
+				<tbody id="konten-laporan-rekap">
+				<tr>
+					<td style="border: 1px solid; text-align: center">1</td>
+					<td style="border: 1px solid">04-05-116-068-5</td>
+					<td style="border: 1px solid">ALFIANI KHODISAH</td>
+					<td style="border: 1px solid; text-align: center">92.93</td>
+					<td style="border: 1px solid">sembilan dua koma sembilan tiga</td>
+				</tr>
+				<tr>
+					<td style="border: 1px solid; text-align: center">1</td>
+					<td style="border: 1px solid">04-05-116-068-5</td>
+					<td style="border: 1px solid">ALFIANI KHODISAH</td>
+					<td style="border: 1px solid; text-align: center">92.93</td>
+					<td style="border: 1px solid">sembilan dua koma sembilan tiga</td>
+				</tr>
+				<tr>
+					<td style="border: 1px solid; text-align: center">1</td>
+					<td style="border: 1px solid">04-05-116-068-5</td>
+					<td style="border: 1px solid">ALFIANI KHODISAH</td>
+					<td style="border: 1px solid; text-align: center">92.93</td>
+					<td style="border: 1px solid">sembilan dua koma sembilan tiga</td>
+				</tr>
+				</tbody>
 			</table>
+			<button onclick="tableToExcel('tabel-laporan-rekap','rekap data')">Simpan Tabel</button>
 		</div>
 		
 		<div id="laporan-siswa" data-role="page" style="font-size: 16px;">
@@ -603,8 +649,145 @@
 				</tr>
 				</tbody>
 			</table>
-			<button onclick="tableToExcel('tabel-laporan-individu','nama')">Simpan Tabel</button>
+			<button onclick="tableToExcel('tabel-laporan-individu',$('#li-nama').html())">Simpan Tabel</button>
 		</div>
+		
+		
+		<!-- Daftar Mapel Page -->
+		<div id="petunjuk-page" data-role="page" style="background: url('img/bg/bg-profil.png'); background-repeat: repeat-x repeat-y;">
+			<div data-role="header" data-position="fixed" data-tap-toggle="false" data-transition="none" data-id="header">
+				<a href="#" data-rel="back" data-role="button" data-icon="arrow-l" data-inline="true" >Back</a>
+				<h1>Bantuan</h1>
+            </div>
+            <div data-role="content" style="font-size: 16px;">
+				<h3>Tombol dan fungsinya</h3>
+				<p>Berikut merupakan tombol dan menu berserta fungsinya yang terdapat pada aplikasi penilaian ini.</p>
+				<img src="img/help/back.png"/><br/>digunakan untuk kembali ke tampilan sebelumnya.<br/>
+				<img src="img/help/add.png"/><br/>berfungsi untuk pemenambahan data.<br/>
+				<img src="img/help/edit.png"/><br/>berfungsi untuk melakukan perubahan data.<br/>
+				<img src="img/help/delete.png"/><br/>digunakan untuk menghapus data.<br/>
+				<img src="img/help/view.png"/><br/>melihat data.<br/> 
+				<img src="img/help/simpan.png"/><br/>menyimpan data.<br/> 
+				<hr/>
+				<img src="img/help/menu-penilaian.png"/><br/>pengguna dapat melakukan penilaian praktik dan melihat laporan siswa menggunakan menu ini.<br/> 
+				<img src="img/help/menu-jurusan.png"/><br/>menu ini berfungsi untuk menampilkan dan mengedit data jurusan.<br/> 
+				<img src="img/help/menu-kelas.png"/><br/>menu ini berfungsi untuk menampilkan dan mengedit data kelas.<br/> 
+				<img src="img/help/menu-siswa.png"/><br/>menu ini berfungsi untuk menampilkan dan mengedit data siswa.<br/> 
+				<img src="img/help/menu-mapel.png"/><br/>menu ini berfungsi untuk menampilkan dan mengedit data mata pelajaran.<br/> 
+				<img src="img/help/menu-kompetensi.png"/><br/>menu ini berfungsi untuk menampilkan dan mengedit data kompetensi.<br/> 
+				<img src="img/help/menu-komponen.png"/><br/>menu ini berfungsi untuk menampilkan dan mengedit data subkomponen penilaian.<br/> 
+				<img src="img/help/menu-petunjuk.png"/><br/>petunjuk tentang cara penggunaan aplikasi dan pengenalan fungsi berbagai tombol terdapat pada menu ini.<br/> 
+				<img src="img/help/menu-tentang.png"/><br/>menampilkan informasi mengenai aplikasi dan pengembang aplikasi.<br/> 
+				<img src="img/help/menu-exit.png"/><br/>penguna dapat keluar dari aplikasi menggunakan menu ini.<br/> 
+				
+				<div data-role="collapsible" data-collapsed-icon="arrow-d" data-expanded-icon="arrow-u" data-iconpos="right" data-theme="a">
+					<h3>Menambah Data Jurusan</h3>
+					<ol>
+						<li>Buka menu <b>daftar jurusan</b> pada menu utama</li>
+						<li>Klik tombol <b>tambah jurusan</b></li>
+						<li>Masukkan nama jurusan pada kolom yang tersedia</li>
+						<li>Klik tombol <b>simpan</b></li>
+					</ol>
+				</div>
+				
+				<div data-role="collapsible" data-collapsed-icon="arrow-d" data-expanded-icon="arrow-u" data-iconpos="right" data-theme="a">
+					<h3>Menambah Data Kelas</h3>
+					<ol>
+						<li>Buka menu <b>daftar kelas</b> pada menu utama</li>
+						<li>Klik tombol <b>tambah kelas</b></li>
+						<li>Masukkan nama jurusan dan nama kelas pada kolom yang tersedia</li>
+						<li>Klik tombol <b>simpan</b></li>
+					</ol>
+				</div>
+
+				<div data-role="collapsible" data-collapsed-icon="arrow-d" data-expanded-icon="arrow-u" data-iconpos="right" data-theme="a">
+					<h3>Menambah Data Siswa</h3>
+					<ol>
+						<li>Buka menu <b>daftar siswa</b> pada menu utama</li>
+						<li>Klik tombol <b>tambah siswa</b></li>
+						<li>Pilih jurusan dan kelas</li>
+						<li>Masukkan no urut dan nama siswa pad kolom yang tersedia</li>
+						<li>Klik tombol <b>simpan</b></li>
+					</ol>
+				</div>
+
+				<div data-role="collapsible" data-collapsed-icon="arrow-d" data-expanded-icon="arrow-u" data-iconpos="right" data-theme="a">
+					<h3>Menambah Data Mata Pelajaran</h3>
+					<ol>
+						<li>Buka menu <b>daftar mapel</b> pada menu utama</li>
+						<li>Klik tombol <b>tambah mapel</b></li>
+						<li>Isikan nama mata pelajaran pada kolom yang tersedia</li>
+						<li>Klik tombol <b>simpan</b></li>
+					</ol>
+				</div>
+
+				<div data-role="collapsible" data-collapsed-icon="arrow-d" data-expanded-icon="arrow-u" data-iconpos="right" data-theme="a">
+					<h3>Menambah Data Kompetensi</h3>
+					<ol>
+						<li>Buka menu <b>daftar kompetensi</b> pada menu utama</li>
+						<li>Klik tombol <b>tambah kompetensi</b></li>
+						<li>Pilih mata pelajaran terkait</li>
+						<li>Isikan kompetensi dasar pada kolom yang tersedia</li>
+						<li>Klik tombol <b>simpan</b></li>
+					</ol>
+				</div>
+
+				<div data-role="collapsible" data-collapsed-icon="arrow-d" data-expanded-icon="arrow-u" data-iconpos="right" data-theme="a">
+					<h3>Mengubah Bobot Penilaian</h3>
+					<ol>
+						<li>Buka menu <b>komponen penilaian</b> pada menu utama</li>
+						<li>Klik tombol <b>bobot komponen</b></li>
+						<li>Masukkan bobot masing-masing komponen penilaian pada kolom yang tersedia</li>
+						<li>Klik tombol <b>simpan</b></li>
+					</ol>
+				</div>
+
+				<div data-role="collapsible" data-collapsed-icon="arrow-d" data-expanded-icon="arrow-u" data-iconpos="right" data-theme="a">
+					<h3>Menambah Data Subkomponen Penilaian</h3>
+					<ol>
+						<li>Buka menu <b>komponen penilaian</b> pada menu utama</li>
+						<li>Klik tombol <b>tambah subkomponen</b></li>
+						<li>Pilih mata pelajaran</li>
+						<li>Pilih kompetensi</li>
+						<li>Pilih komponen penilaian</li>
+						<li>Masukkan subkomponen penilaian pada kolom yang tersedia</li>
+						<li>Klik tombol <b>simpan</b></li>
+					</ol>
+				</div>
+
+				<div data-role="collapsible" data-collapsed-icon="arrow-d" data-expanded-icon="arrow-u" data-iconpos="right" data-theme="a">
+					<h3>Melakukan Penilaian</h3>
+					<ol>
+						<li>Buka menu <b>penilaian</b> pada menu utama</li>
+						<li>Pilih data siswa yang akan dinilai</li>
+						<li>Pilih data mata pelajaran dan kompetensi yang akan dinilai</li>
+						<li>Klik tombol <b>penilaian</b></li>
+						<li>Isikan nilai tipa-tiap subkomponen penilaian pad kolom yang tersedia</li>
+						<li>Klik tombol <b>simpan nilai</b></li>
+					</ol>
+				</div>
+
+				<div data-role="collapsible" data-collapsed-icon="arrow-d" data-expanded-icon="arrow-u" data-iconpos="right" data-theme="a">
+					<h3>Melihat Laporan Penilaian</h3>
+					<h4>A. Laporan Penilaian Siswa</h4>
+					<ol>
+						<li>Buka menu <b>penilaian</b> pada menu utama</li>
+						<li>Pilih data siswa yang akan dilihat laporannya</li>
+						<li>Pilih data mata pelajaran dan kompetensi yang akan dilihat laporannya</li>
+						<li>Klik tombol <b>laporan siswa</b></li>
+						<li>Klik tombol <b>simpan tabel</b> untuk menyimpan laporan dalam format excel</li>
+					</ol>
+					<h4>B. Laporan Penilaian Kelas</h4>
+					<ol>
+						<li>Buka menu <b>penilaian</b> pada menu utama</li>
+						<li>Pilih data kelas yang akan dilihat laporannya</li>
+						<li>Pilih data mata pelajaran dan kompetensi yang akan dilihat laporannya</li>
+						<li>Klik tombol <b>laporan kelas</b></li>
+						<li>Klik tombol <b>simpan tabel</b> untuk menyimpan laporan dalam format excel</li>
+					</ol>
+				</div>
+            </div>
+        </div><!-- /page  -->	
     </div>
 		
     </body>

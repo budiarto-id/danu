@@ -493,7 +493,7 @@ function showDaftarJurusan(){
 			for (var i = 0, item = null; i < dataset.length; i++) {
 				item = dataset.item(i);
 				var dataSiswa = "<tr><td>"+item['txtJurusan']+"</td><td><a href='#frm-edit-jurusan' data-rel='popup' data-theme='b' class='ui-btn ui-icon-edit ui-btn-icon-notext ui-corner-all ui-btn-hover-b ui-btn-up-b' onmousedown='$(\"#idJurusan-update\").val(\""+item['idJurusan']+"\");$(\"#un-update\").val(\""+item['txtJurusan']+"\")'></a>"+
-				"<a href='#' data-theme='b' class='ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all ui-btn-hover-b ui-btn-up-b' style='background: red' onclick='exeSQL(\"DELETE FROM tblJurusan WHERE idJurusan="+item['idJurusan']+"\");showDaftarJurusan()'></a></td></tr>"
+				"<a href='#' data-theme='b' class='ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all ui-btn-hover-b ui-btn-up-b' onclick='exeSQL(\"DELETE FROM tblJurusan WHERE idJurusan="+item['idJurusan']+"\");showDaftarJurusan()'></a></td></tr>"
 				tabel.append(dataSiswa);
 			}
 		});
@@ -555,7 +555,7 @@ function showDaftarKD(){
 * tampilkan daftar subkomponen penilaian ke dalam tabel #daftar-subkomponen
 */
 function showDaftarIndikator(){
-	$("#daftar-subkomponen").html('');
+	$("#tabel-daftar-subkomponen").html('');
 	sqlStatement = "SELECT * FROM tblIndikator WHERE idMapel = "+$("#dd-mapel-00").val()+" AND idKompetensi = "+$("#dd-kompetensi-00").val()+" AND idPenilaian = "+$("#dd-komponen-00").val();
 	console.log(sqlStatement);
 	db.transaction(function (tx) {
@@ -653,7 +653,7 @@ function simpanNilai(){
 *
 */
 function setSiswaToLaporan(){
-	sqlStatement = "SELECT * FROM tblSiswa WHERE idSiswai="+$("#pilihSiswa-000").val();
+	sqlStatement = "SELECT * FROM tblSiswa WHERE idSiswa="+$("#pilihSiswa-000").val();
 	db.transaction(function (tx) {
 		tx.executeSql(sqlStatement, [], function (tx, result) {
 			dataset = result.rows;
@@ -665,6 +665,146 @@ function setSiswaToLaporan(){
 		});
 	});
 }
+function showLaporanRekap(){
+	var div = $("#hidden");
+	var tabel = $("#konten-laporan-rekap");
+	var idMapel = $("#pilihMapel-000").val();
+	var idKompetensi = $("#pilihKompetensi-000").val();
+	var idKelas = $("#pilihKelas-000").val();
+	div.html('');
+	tabel.html('');
+	s = "SELECT * FROM tblSiswa WHERE idKelas="+idKelas;
+	db.transaction(function (tx) {
+		tx.executeSql(s, [], function (tx, result) {
+			dataset = result.rows;
+			var d = "<input type='hidden' id='jml-siswa' value='"+dataset.length+"'/>";
+			div.html(d);
+			for (var i = 0, item = null; i < dataset.length; i++) {
+				item = dataset.item(i);
+				d = "<input type='hidden' id='h"+i+"' value='"+item['idSiswa']+"'/>";
+				div.append(d);
+				var baris = "<tr>"
+							+	"<td style=\"border: 1px solid; text-align: center\">"+(i+1)+"</td>"
+							+	"<td style=\"border: 1px solid\">"+item['noUrut']+"</td>"
+							+	"<td style=\"border: 1px solid\">"+item['txtNamaSiswa']+"</td>"
+							+	"<td style=\"border: 1px solid\" id=\"nr-"+item['idSiswa']+"\">0</td>"
+							+	"<td style=\"border: 1px solid\" id=\"na-"+item['idSiswa']+"\">nol</td>"
+							+"</tr>";
+				tabel.append(baris);
+			}
+			showLaporanRekap2();
+		});
+	});
+	/*db.transaction(function (tx) {
+		console.log("jml-siswa="+$("#jml-siswa").val());
+		jmlSiswa = parseInt($("#jml-siswa").val());
+		for(var j =0; j<jmlSiswa; j++){
+			idSiswa = parseInt($("#h"+j).val());
+			console.log("idSiswa="+idSiswa);
+			$("#nilai-j").val(j);
+			s1 = "SELECT *, (SELECT txtIndikator FROM tblIndikator WHERE idIndikator=tblDaftarNilai.idIndikator) AS indikator, (SELECT idPenilaian FROM tblIndikator WHERE idIndikator=tblDaftarNilai.idIndikator) AS idPenilaian, (SELECT bobot FROM tblPenilaian WHERE idPenilaian=idPenilaian) AS bobot, (SELECT txtPenilaian FROM tblPenilaian WHERE idPenilaian=idPenilaian) AS komponen FROM tblDaftarNilai WHERE idSiswa="+idSiswa+" AND idMapel="+idMapel+" AND idPertemuan="+idKompetensi+" AND idPenilaian=1";
+			tx.executeSql(s1, [], function (tx, result) {
+				dataset = result.rows
+				console.log(s1);
+				for (var i = 0, item = null; i < dataset.length; i++) {
+					item = dataset.item(i);
+					console.log("idSiswa="+item['idSiswa']);
+					$("#nr-"+j).html(parseFloat($("#nr-"+j).html())+item['nilai']*item['bobot']/100);
+				}
+			});
+		}
+	});*/
+	window.location.href = "#laporan-rekap";
+}
+function showLaporanRekap2(){
+	var div = $("#hidden");
+	var tabel = $("#konten-laporan-rekap");
+	var idMapel = $("#pilihMapel-000").val();
+	var idKompetensi = $("#pilihKompetensi-000").val();
+	var idKelas = $("#pilihKelas-000").val();
+	console.log("jml-siswa="+$("#jml-siswa").val());
+	jmlSiswa = parseInt($("#jml-siswa").val());
+	for (var j=0; j<=jmlSiswa-1; j++){  
+      (function(j) {
+        db.transaction(function (tx) {  
+			idSiswa = parseInt($("#h"+j).val());
+			console.log("idSiswa="+idSiswa);
+			//$("#nilai-j").val(j);
+			s1 = "SELECT *, (SELECT txtIndikator FROM tblIndikator WHERE idIndikator=tblDaftarNilai.idIndikator) AS indikator, (SELECT idPenilaian FROM tblIndikator WHERE idIndikator=tblDaftarNilai.idIndikator) AS idPenilaian, (SELECT bobot FROM tblPenilaian WHERE idPenilaian=idPenilaian) AS bobot, (SELECT txtPenilaian FROM tblPenilaian WHERE idPenilaian=idPenilaian) AS komponen FROM tblDaftarNilai WHERE idSiswa="+idSiswa+" AND idMapel="+idMapel+" AND idPertemuan="+idKompetensi+" AND idPenilaian=1";
+			s2 = "SELECT *, (SELECT txtIndikator FROM tblIndikator WHERE idIndikator=tblDaftarNilai.idIndikator) AS indikator, (SELECT idPenilaian FROM tblIndikator WHERE idIndikator=tblDaftarNilai.idIndikator) AS idPenilaian, (SELECT bobot FROM tblPenilaian WHERE idPenilaian=idPenilaian) AS bobot, (SELECT txtPenilaian FROM tblPenilaian WHERE idPenilaian=idPenilaian) AS komponen FROM tblDaftarNilai WHERE idSiswa="+idSiswa+" AND idMapel="+idMapel+" AND idPertemuan="+idKompetensi+" AND idPenilaian=2";
+			s3 = "SELECT *, (SELECT txtIndikator FROM tblIndikator WHERE idIndikator=tblDaftarNilai.idIndikator) AS indikator, (SELECT idPenilaian FROM tblIndikator WHERE idIndikator=tblDaftarNilai.idIndikator) AS idPenilaian, (SELECT bobot FROM tblPenilaian WHERE idPenilaian=idPenilaian) AS bobot, (SELECT txtPenilaian FROM tblPenilaian WHERE idPenilaian=idPenilaian) AS komponen FROM tblDaftarNilai WHERE idSiswa="+idSiswa+" AND idMapel="+idMapel+" AND idPertemuan="+idKompetensi+" AND idPenilaian=3";
+			s4 = "SELECT *, (SELECT txtIndikator FROM tblIndikator WHERE idIndikator=tblDaftarNilai.idIndikator) AS indikator, (SELECT idPenilaian FROM tblIndikator WHERE idIndikator=tblDaftarNilai.idIndikator) AS idPenilaian, (SELECT bobot FROM tblPenilaian WHERE idPenilaian=idPenilaian) AS bobot, (SELECT txtPenilaian FROM tblPenilaian WHERE idPenilaian=idPenilaian) AS komponen FROM tblDaftarNilai WHERE idSiswa="+idSiswa+" AND idMapel="+idMapel+" AND idPertemuan="+idKompetensi+" AND idPenilaian=4";
+			s5 = "SELECT *, (SELECT txtIndikator FROM tblIndikator WHERE idIndikator=tblDaftarNilai.idIndikator) AS indikator, (SELECT idPenilaian FROM tblIndikator WHERE idIndikator=tblDaftarNilai.idIndikator) AS idPenilaian, (SELECT bobot FROM tblPenilaian WHERE idPenilaian=idPenilaian) AS bobot, (SELECT txtPenilaian FROM tblPenilaian WHERE idPenilaian=idPenilaian) AS komponen FROM tblDaftarNilai WHERE idSiswa="+idSiswa+" AND idMapel="+idMapel+" AND idPertemuan="+idKompetensi+" AND idPenilaian=5";
+			tx.executeSql(s1, [], function (tx, result) {
+				dataset = result.rows
+				console.log(idSiswa);
+				for (var i = 0, item = null; i < dataset.length; i++) {
+					item = dataset.item(i);
+					console.log("idSiswa="+idSiswa);
+					$("#nr-"+item['idSiswa']).html(parseFloat($("#nr-"+item['idSiswa']).html())+item['nilai']*item['bobot']/100);
+				}
+			});
+			tx.executeSql(s2, [], function (tx, result) {
+				dataset = result.rows
+				console.log(idSiswa);
+				for (var i = 0, item = null; i < dataset.length; i++) {
+					item = dataset.item(i);
+					console.log("idSiswa="+idSiswa);
+					$("#nr-"+item['idSiswa']).html(parseFloat($("#nr-"+item['idSiswa']).html())+item['nilai']*item['bobot']/100);
+				}
+			});
+			tx.executeSql(s3, [], function (tx, result) {
+				dataset = result.rows
+				console.log(idSiswa);
+				for (var i = 0, item = null; i < dataset.length; i++) {
+					item = dataset.item(i);
+					console.log("idSiswa="+idSiswa);
+					$("#nr-"+item['idSiswa']).html(parseFloat($("#nr-"+item['idSiswa']).html())+item['nilai']*item['bobot']/100);
+				}
+			});
+			tx.executeSql(s4, [], function (tx, result) {
+				dataset = result.rows
+				console.log(idSiswa);
+				for (var i = 0, item = null; i < dataset.length; i++) {
+					item = dataset.item(i);
+					console.log("idSiswa="+idSiswa);
+					$("#nr-"+item['idSiswa']).html(parseFloat($("#nr-"+item['idSiswa']).html())+item['nilai']*item['bobot']/100);
+				}
+			});
+			tx.executeSql(s5, [], function (tx, result) {
+				dataset = result.rows
+				console.log(idSiswa);
+				for (var i = 0, item = null; i < dataset.length; i++) {
+					item = dataset.item(i);
+					console.log("idSiswa="+idSiswa);
+					$("#nr-"+item['idSiswa']).html(parseFloat($("#nr-"+item['idSiswa']).html())+item['nilai']*item['bobot']/100);
+				}
+				$("#nr-"+idSiswa).html(parseFloat($("#nr-"+idSiswa).html()).toFixed(2));
+				$("#na-"+idSiswa).html(terbilang($("#nr-"+idSiswa).html()));
+			});
+        });
+      })(j);
+    };
+	/*db.transaction(function (tx) {
+		console.log("jml-siswa="+$("#jml-siswa").val());
+		jmlSiswa = parseInt($("#jml-siswa").val());
+		for(var j =0; j<jmlSiswa; j++){
+			idSiswa = parseInt($("#h"+j).val());
+			console.log("idSiswa="+idSiswa);
+			$("#nilai-j").val(j);
+			s1 = "SELECT *, (SELECT txtIndikator FROM tblIndikator WHERE idIndikator=tblDaftarNilai.idIndikator) AS indikator, (SELECT idPenilaian FROM tblIndikator WHERE idIndikator=tblDaftarNilai.idIndikator) AS idPenilaian, (SELECT bobot FROM tblPenilaian WHERE idPenilaian=idPenilaian) AS bobot, (SELECT txtPenilaian FROM tblPenilaian WHERE idPenilaian=idPenilaian) AS komponen FROM tblDaftarNilai WHERE idSiswa="+idSiswa+" AND idMapel="+idMapel+" AND idPertemuan="+idKompetensi+" AND idPenilaian=1";
+			tx.executeSql(s1, [], function (tx, result) {
+				dataset = result.rows
+				console.log(s1);
+				for (var i = 0, item = null; i < dataset.length; i++) {
+					item = dataset.item(i);
+					console.log("idSiswa="+item['idSiswa']);
+					$("#nr-"+j).html(parseFloat($("#nr-"+j).html())+item['nilai']*item['bobot']/100);
+				}
+			});
+		}
+	});*/
+}
 function showLaporanIndividu(){
 	setSiswaToLaporan();
 	var tabel = $("#konten-laporan-individu"); 
@@ -672,6 +812,10 @@ function showLaporanIndividu(){
 	var idMapel = $("#pilihMapel-000").val();
 	var idKompetensi = $("#pilihKompetensi-000").val();
 	s = "SELECT nilai, (SELECT txtIndikator FROM tblIndikator WHERE idIndikator=tblDaftarNilai.idIndikator) AS indikator, (SELECT idPenilaian FROM tblIndikator WHERE idIndikator=tblDaftarNilai.idIndikator) AS idPenilaian, (SELECT bobot FROM tblPenilaian WHERE idPenilaian=idPenilaian) AS bobot, (SELECT txtPenilaian FROM tblPenilaian WHERE idPenilaian=idPenilaian) AS komponen FROM tblDaftarNilai WHERE idSiswa="+idSiswa+" AND idMapel="+idMapel+" AND idPertemuan="+idKompetensi+" AND idPenilaian=1";
+	s2 = "SELECT nilai, (SELECT txtIndikator FROM tblIndikator WHERE idIndikator=tblDaftarNilai.idIndikator) AS indikator, (SELECT idPenilaian FROM tblIndikator WHERE idIndikator=tblDaftarNilai.idIndikator) AS idPenilaian, (SELECT bobot FROM tblPenilaian WHERE idPenilaian=idPenilaian) AS bobot, (SELECT txtPenilaian FROM tblPenilaian WHERE idPenilaian=idPenilaian) AS komponen FROM tblDaftarNilai WHERE idSiswa="+idSiswa+" AND idMapel="+idMapel+" AND idPertemuan="+idKompetensi+" AND idPenilaian=2";
+	s3 = "SELECT nilai, (SELECT txtIndikator FROM tblIndikator WHERE idIndikator=tblDaftarNilai.idIndikator) AS indikator, (SELECT idPenilaian FROM tblIndikator WHERE idIndikator=tblDaftarNilai.idIndikator) AS idPenilaian, (SELECT bobot FROM tblPenilaian WHERE idPenilaian=idPenilaian) AS bobot, (SELECT txtPenilaian FROM tblPenilaian WHERE idPenilaian=idPenilaian) AS komponen FROM tblDaftarNilai WHERE idSiswa="+idSiswa+" AND idMapel="+idMapel+" AND idPertemuan="+idKompetensi+" AND idPenilaian=3";
+	s4 = "SELECT nilai, (SELECT txtIndikator FROM tblIndikator WHERE idIndikator=tblDaftarNilai.idIndikator) AS indikator, (SELECT idPenilaian FROM tblIndikator WHERE idIndikator=tblDaftarNilai.idIndikator) AS idPenilaian, (SELECT bobot FROM tblPenilaian WHERE idPenilaian=idPenilaian) AS bobot, (SELECT txtPenilaian FROM tblPenilaian WHERE idPenilaian=idPenilaian) AS komponen FROM tblDaftarNilai WHERE idSiswa="+idSiswa+" AND idMapel="+idMapel+" AND idPertemuan="+idKompetensi+" AND idPenilaian=4";
+	s5 = "SELECT nilai, (SELECT txtIndikator FROM tblIndikator WHERE idIndikator=tblDaftarNilai.idIndikator) AS indikator, (SELECT idPenilaian FROM tblIndikator WHERE idIndikator=tblDaftarNilai.idIndikator) AS idPenilaian, (SELECT bobot FROM tblPenilaian WHERE idPenilaian=idPenilaian) AS bobot, (SELECT txtPenilaian FROM tblPenilaian WHERE idPenilaian=idPenilaian) AS komponen FROM tblDaftarNilai WHERE idSiswa="+idSiswa+" AND idMapel="+idMapel+" AND idPertemuan="+idKompetensi+" AND idPenilaian=5";
 	tabel.html('');
 	db.transaction(function (tx) {
 		tx.executeSql(s, [], function (tx, result) {
@@ -690,15 +834,131 @@ function showLaporanIndividu(){
 						+"	<td colspan=\"2\" style=\"border: 1px solid\">"+item['indikator']+"</td>"
 						+"	<td style=\"border: 1px solid; text-align: center\">"+item['nilai']+"</td>"
 						+"</tr>";
-				$("#nilai1").html(parseInt($("#nilai1").html())+item['nilai']*item['bobot']/100);
+				$("#nilai1").html(parseFloat($("#nilai1").html())+item['nilai']*item['bobot']/100);
 				tabel.append(baris);
 			}
 			baris = "<tr>"
 					+"	<td colspan=\"2\" style=\"border: 1px solid; text-align: center\"><b>Jumlah Skor Komponen</b></td>"
-					+"	<td style=\"border: 1px solid; text-align: center\">"+item['nilai']+"</td>"
+					+"	<td style=\"border: 1px solid; text-align: center\">";
+			if(dataset.length == 0){baris+="0"}else{baris+=item['nilai']};
+			baris += "</td>";
+			baris += "</tr>";
+			tabel.append(baris);
+		},onError);
+		tx.executeSql(s2, [], function (tx, result) {
+			dataset = result.rows;
+			console.log(s);
+			var baris = "<tr>"
+						+	"<td rowspan=\""+(dataset.length+2)+"\" style=\"border: 1px solid; text-align: center\">II</td>"
+						+	"<td colspan=\"2\" style=\"border: 1px solid\"><b>Proses (Sistematika dan Cara Kerja)</b></td>"
+						+	"<td style=\"border: 1px solid\"></td>"
+						+	"<td rowspan=\""+(dataset.length+2)+"\" style=\"border: 1px solid; text-align: center\" id=\"nilai2\">0</td>"
+						+"</tr>";
+			tabel.append(baris);
+			for (var i = 0, item = null; i < dataset.length; i++) {
+				item = dataset.item(i);
+				baris = "<tr>"
+						+"	<td colspan=\"2\" style=\"border: 1px solid\">"+item['indikator']+"</td>"
+						+"	<td style=\"border: 1px solid; text-align: center\">"+item['nilai']+"</td>"
+						+"</tr>";
+				$("#nilai2").html(parseFloat($("#nilai2").html())+item['nilai']*item['bobot']/100);
+				tabel.append(baris);
+			}
+			baris = "<tr>"
+					+"	<td colspan=\"2\" style=\"border: 1px solid; text-align: center\"><b>Jumlah Skor Komponen</b></td>"
+					+"	<td style=\"border: 1px solid; text-align: center\">";
+			if(dataset.length == 0){baris+="0"}else{baris+=item['nilai']};
+			baris += "</td>";
+			baris += "</tr>";
+			tabel.append(baris);
+		},onError);
+		tx.executeSql(s3, [], function (tx, result) {
+			dataset = result.rows;
+			console.log(s);
+			var baris = "<tr>"
+						+	"<td rowspan=\""+(dataset.length+2)+"\" style=\"border: 1px solid; text-align: center\">III</td>"
+						+	"<td colspan=\"2\" style=\"border: 1px solid\"><b>Hasil Kerja</b></td>"
+						+	"<td style=\"border: 1px solid\"></td>"
+						+	"<td rowspan=\""+(dataset.length+2)+"\" style=\"border: 1px solid; text-align: center\" id=\"nilai3\">0</td>"
+						+"</tr>";
+			tabel.append(baris);
+			for (var i = 0, item = null; i < dataset.length; i++) {
+				item = dataset.item(i);
+				baris = "<tr>"
+						+"	<td colspan=\"2\" style=\"border: 1px solid\">"+item['indikator']+"</td>"
+						+"	<td style=\"border: 1px solid; text-align: center\">"+item['nilai']+"</td>"
+						+"</tr>";
+				$("#nilai3").html(parseFloat($("#nilai3").html())+item['nilai']*item['bobot']/100);
+				tabel.append(baris);
+			}
+			baris = "<tr>"
+					+"	<td colspan=\"2\" style=\"border: 1px solid; text-align: center\"><b>Jumlah Skor Komponen</b></td>"
+					+"	<td style=\"border: 1px solid; text-align: center\">";
+			if(dataset.length == 0){baris+="0"}else{baris+=item['nilai']};
+			baris += "</td>";
+			baris += "</tr>";
+			tabel.append(baris);
+		},onError);
+		tx.executeSql(s4, [], function (tx, result) {
+			dataset = result.rows;
+			console.log(s);
+			var baris = "<tr>"
+						+	"<td rowspan=\""+(dataset.length+2)+"\" style=\"border: 1px solid; text-align: center\">IV</td>"
+						+	"<td colspan=\"2\" style=\"border: 1px solid\"><b>Sikap Kerja</b></td>"
+						+	"<td style=\"border: 1px solid\"></td>"
+						+	"<td rowspan=\""+(dataset.length+2)+"\" style=\"border: 1px solid; text-align: center\" id=\"nilai4\">0</td>"
+						+"</tr>";
+			tabel.append(baris);
+			for (var i = 0, item = null; i < dataset.length; i++) {
+				item = dataset.item(i);
+				baris = "<tr>"
+						+"	<td colspan=\"2\" style=\"border: 1px solid\">"+item['indikator']+"</td>"
+						+"	<td style=\"border: 1px solid; text-align: center\">"+item['nilai']+"</td>"
+						+"</tr>";
+				$("#nilai4").html(parseFloat($("#nilai4").html())+item['nilai']*item['bobot']/100);
+				tabel.append(baris);
+			}
+			baris = "<tr>"
+					+"	<td colspan=\"2\" style=\"border: 1px solid; text-align: center\"><b>Jumlah Skor Komponen</b></td>"
+					+"	<td style=\"border: 1px solid; text-align: center\">";
+			if(dataset.length == 0){baris+="0"}else{baris+=item['nilai']};
+			baris += "</td>";
+			baris += "</tr>";
+			tabel.append(baris);
+		},onError);
+		tx.executeSql(s5, [], function (tx, result) {
+			dataset = result.rows;
+			console.log(s);
+			var baris = "<tr>"
+						+	"<td rowspan=\""+(dataset.length+2)+"\" style=\"border: 1px solid; text-align: center\">V</td>"
+						+	"<td colspan=\"2\" style=\"border: 1px solid\"><b>Waktu</b></td>"
+						+	"<td style=\"border: 1px solid\"></td>"
+						+	"<td rowspan=\""+(dataset.length+2)+"\" style=\"border: 1px solid; text-align: center\" id=\"nilai5\">0</td>"
+						+"</tr>";
+			tabel.append(baris);
+			for (var i = 0, item = null; i < dataset.length; i++) {
+				item = dataset.item(i);
+				baris = "<tr>"
+						+"	<td colspan=\"2\" style=\"border: 1px solid\">"+item['indikator']+"</td>"
+						+"	<td style=\"border: 1px solid; text-align: center\">"+item['nilai']+"</td>"
+						+"</tr>";
+				$("#nilai5").html(parseFloat($("#nilai5").html())+item['nilai']*item['bobot']/100);
+				tabel.append(baris);
+			}
+			baris = "<tr>"
+					+"	<td colspan=\"2\" style=\"border: 1px solid; text-align: center\"><b>Jumlah Skor Komponen</b></td>"
+					+"	<td style=\"border: 1px solid; text-align: center\">";
+			if(dataset.length == 0){baris+="0"}else{baris+=item['nilai']};
+			baris += "</td>";
+			baris += "</tr>";
+			tabel.append(baris);
+			var n = parseFloat($("#nilai1").html())+parseFloat($("#nilai2").html())+parseFloat($("#nilai3").html())+parseFloat($("#nilai4").html())+parseFloat($("#nilai5").html());
+			baris = "<tr>"
+					+"	<td colspan=\"3\" style=\"border: 1px solid; text-align: center\"><b>NILAI AKHIR = ( Jumlah Skor Perolehan / Jumlah Skor maks ) x Bobot</b></td>"
+					+"	<td colspan=\"2\" style=\"border: 1px solid; text-align: center\">"+n+"</td>"
 					+"</tr>";
 			tabel.append(baris);
-		});
+		},onError);
 	});
 	window.location.href = "#laporan-siswa";
 }
@@ -764,6 +1024,20 @@ function exeSQL(sqlStatement){
 */
 function clearText(){
 	$("input[type=text]").val('');
+}
+
+function terbilang(a){
+	var str = a;
+	var angka = str.split(".");
+	var digit = ['nol','satu','dua','tiga','empat','lima','enam','tujuh','delapan','sembilan'];
+	var a = digit[angka[0][0]]+' ';
+	var b = digit[angka[0][1]]+' ';
+	var c = digit[angka[0][2]];
+	(c==undefined) ? c='' : c += ' ';
+	var d = digit[angka[1][0]]+' ';
+	var e = digit[angka[1][1]];
+	var res = a+b+c+'koma '+d+e;
+	return res;
 }
 
 /**
