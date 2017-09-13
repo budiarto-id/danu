@@ -199,7 +199,7 @@ function getSiswaFromKelas_000(){
 		$("#pilihSiswa-000").html("<option value='0'>Pilih Kelas Terlebih Dahulu</option>");
 	}else{
 		$("#pilihSiswa-000").html("<option value='0'>Pilih Siswa</option>");
-		sqlStatement = "SELECT * FROM tblSiswa WHERE idKelas="+$("#pilihKelas-000").val();
+		sqlStatement = "SELECT * FROM tblSiswa WHERE idKelas="+$("#pilihKelas-000").val()+" ORDER BY noUrut";
 		db.transaction(function (tx) {
 			tx.executeSql(sqlStatement, [], function (tx, result) {
 				dataset = result.rows;
@@ -422,7 +422,7 @@ function searchDaftarKelas(){
 				}
 				for (var i = 0, item = null; i < dataset.length; i++) {
 					item = dataset.item(i);
-					var dataKelas = "<tr><td>"+item['txtKelas']+"</td><td style='text-align:right'><a href='#frm-update-kelas' data-rel='popup' data-theme='b' class='ui-btn ui-icon-edit ui-btn-icon-notext ui-corner-all ui-btn-hover-b ui-btn-up-b' onmousedown='$(\"#idKelas-update\").val(\""+item['idKelas']+"\");$(\"#update-nama-kelas\").val(\""+item['txtKelas']+"\")'></a><a href='#' data-theme='b' class='ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all ui-btn-hover-b ui-btn-up-b'></a></td></tr>"
+					var dataKelas = "<tr><td>"+item['txtKelas']+"</td><td style='text-align:right'><a href='#frm-update-kelas' data-rel='popup' data-theme='b' class='ui-btn ui-icon-edit ui-btn-icon-notext ui-corner-all ui-btn-hover-b ui-btn-up-b' onmousedown='$(\"#idKelas-update\").val(\""+item['idKelas']+"\");$(\"#update-nama-kelas\").val(\""+item['txtKelas']+"\")'></a><a href='#' data-theme='b' class='ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all ui-btn-hover-b ui-btn-up-b' onclick='exeSQL(\"DELETE FROM tblKelas WHERE idKelas="+item['idKelas']+"\");searchDaftarKelas()'></a></td></tr>"
 					$("#tabel-daftar-kelas").append(dataKelas);
 				}
 			});
@@ -442,7 +442,7 @@ function searchDaftarSiswa(){
 		alert("Pilih Jurusan dan Kelas terlebih dahulu untuk melihat daftar siswa.");
 	}else{
 		$("#tabel-daftar-siswa").html('');
-		sqlStatement = "SELECT * FROM tblSiswa WHERE idKelas="+kelas;
+		sqlStatement = "SELECT * FROM tblSiswa WHERE idKelas="+kelas+" ORDER BY noUrut";
 		db.transaction(function (tx) {
 			tx.executeSql(sqlStatement, [], function (tx, result) {
 				dataset = result.rows;
@@ -451,7 +451,7 @@ function searchDaftarSiswa(){
 				}
 				for (var i = 0, item = null; i < dataset.length; i++) {
 					item = dataset.item(i);
-					var dataSiswa = "<tr><td>"+item['noUrut']+"</td><td>"+item['txtNamaSiswa']+"</td><td><a href='#frm-update-siswa' data-rel='popup' data-theme='b' class='ui-btn ui-icon-edit ui-btn-icon-notext ui-corner-all ui-btn-hover-b ui-btn-up-b' onmousedown='$(\"#idSiswa-update\").val(\""+item['idSiswa']+"\");$(\"#update-nama-siswa\").val(\""+item['txtNamaSiswa']+"\");$(\"#update-no-urut\").val(\""+item['noUrut']+"\");$(\"#pilihKelas-update-siswa\").val(\""+item['idKelas']+"\");$(\"#pilihKelas-update-siswa\").change();showDropdownUpdateSiswa("+item['idKelas']+");'></a><a href='#' data-theme='b' class='ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all ui-btn-hover-b ui-btn-up-b'></a></td></tr>"
+					var dataSiswa = "<tr><td>"+item['noUrut']+"</td><td>"+item['txtNamaSiswa']+"</td><td><a href='#frm-update-siswa' data-rel='popup' data-theme='b' class='ui-btn ui-icon-edit ui-btn-icon-notext ui-corner-all ui-btn-hover-b ui-btn-up-b' onmousedown='$(\"#idSiswa-update\").val(\""+item['idSiswa']+"\");$(\"#update-nama-siswa\").val(\""+item['txtNamaSiswa']+"\");$(\"#update-no-urut\").val(\""+item['noUrut']+"\");$(\"#pilihKelas-update-siswa\").val(\""+item['idKelas']+"\");$(\"#pilihKelas-update-siswa\").change();showDropdownUpdateSiswa("+item['idKelas']+");'></a><a href='#' data-theme='b' class='ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all ui-btn-hover-b ui-btn-up-b'  onclick='exeSQL(\"DELETE FROM tblSiswa WHERE idSiswa="+item['idSiswa']+"\");searchDaftarSiswa()'></a></td></tr>"
 					$("#tabel-daftar-siswa").append(dataSiswa);
 				}
 			});
@@ -517,7 +517,7 @@ function showDaftarMapel(){
 			}
 			for (var i = 0, item = null; i < dataset.length; i++) {
 				item = dataset.item(i);
-				var baris = "<tr><td>"+item['txtMapel']+"</td><td><a href='#frm-update-mapel' data-rel='popup' data-theme='b' class='ui-btn ui-icon-edit ui-btn-icon-notext ui-corner-all ui-btn-hover-b ui-btn-up-b' onmousedown='$(\"#idMapel-update\").val(\""+item['idMapel']+"\");$(\"#update-mapel\").val(\""+item['txtMapel']+"\")'></a><a href='#' data-theme='b' class='ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all ui-btn-hover-b ui-btn-up-b'></a></td></tr>"
+				var baris = "<tr><td>"+item['txtMapel']+"</td><td><a href='#frm-update-mapel' data-rel='popup' data-theme='b' class='ui-btn ui-icon-edit ui-btn-icon-notext ui-corner-all ui-btn-hover-b ui-btn-up-b' onmousedown='$(\"#idMapel-update\").val(\""+item['idMapel']+"\");$(\"#update-mapel\").val(\""+item['txtMapel']+"\")'></a><a href='#' data-theme='b' class='ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all ui-btn-hover-b ui-btn-up-b' onclick='exeSQL(\"DELETE FROM tblMapel WHERE idMapel="+item['idMapel']+"\");showDaftarMapel()'></a></td></tr>"
 				$("#tabel-daftar-mapel").append(baris);
 			}
 		});
@@ -542,7 +542,7 @@ function showDaftarKD(){
 			}
 			for (var i = 0, item = null; i < dataset.length; i++) {
 				item = dataset.item(i);
-				var baris = "<tr><td>"+item['txtKompetensi']+"</td><td><a href='#frm-update-kompetensi' data-rel='popup' data-theme='b' class='ui-btn ui-icon-edit ui-btn-icon-notext ui-corner-all ui-btn-hover-b ui-btn-up-b' onmousedown='$(\"#idKompetensi-update\").val(\""+item['idKompetensi']+"\");$(\"#txt-mapel-update-kompetensi\").val(\""+item['txtKompetensi']+"\")'></a><a href='#' data-theme='b' class='ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all ui-btn-hover-b ui-btn-up-b'></a></td></tr>"
+				var baris = "<tr><td>"+item['txtKompetensi']+"</td><td><a href='#frm-update-kompetensi' data-rel='popup' data-theme='b' class='ui-btn ui-icon-edit ui-btn-icon-notext ui-corner-all ui-btn-hover-b ui-btn-up-b' onmousedown='$(\"#idKompetensi-update\").val(\""+item['idKompetensi']+"\");$(\"#txt-mapel-update-kompetensi\").val(\""+item['txtKompetensi']+"\")'></a><a href='#' data-theme='b' class='ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all ui-btn-hover-b ui-btn-up-b' onclick='exeSQL(\"DELETE FROM tblKompetensi WHERE idKompetensi="+item['idKompetensi']+"\");showDaftarKD()'></a></td></tr>"
 				tabel.append(baris);
 			}
 		});
@@ -566,7 +566,7 @@ function showDaftarIndikator(){
 			}
 			for (var i = 0, item = null; i < dataset.length; i++){
 				item = dataset.item(i);
-				var dataSub = "<tr><td>"+item['txtIndikator']+"</td><td><a href='#' data-theme='b' class='ui-btn ui-icon-edit ui-btn-icon-notext ui-corner-all ui-btn-hover-b ui-btn-up-b'></a><a href='#' data-theme='b' class='ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all ui-btn-hover-b ui-btn-up-b'></a></td></tr>";
+				var dataSub = "<tr><td>"+item['txtIndikator']+"</td><td><a href='#' data-theme='b' class='ui-btn ui-icon-edit ui-btn-icon-notext ui-corner-all ui-btn-hover-b ui-btn-up-b'></a><a href='#' data-theme='b' class='ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all ui-btn-hover-b ui-btn-up-b' onclick='exeSQL(\"DELETE FROM tblIndikator WHERE idIndikator="+item['idIndikator']+"\");showDaftarIndikator()'></a></td></tr>";
 				$("#tabel-daftar-subkomponen").append(dataSub);
 			}
 		});
@@ -591,7 +591,7 @@ function showDaftarPenilaian(){
 			for (var i = 0, item = null; i < dataset.length; i++){
 				item = dataset.item(i);
 				var dataSub = "<tr><td>"+item['txtIndikator']+"</td>"
-							  + "<td><div class='ui-input-text ui-shadow-inset ui-corner-all ui-btn-shadow ui-body-c'><input type='number' style='text-align: right' maxlength='3' max='100' id='n"+i+"' data-val='"+item['idIndikator']+"' data-id='0' class='ui-input-text ui-body-c' oninput='javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);' value='0'/></div></td></tr>";
+							  + "<td><div class='ui-input-text ui-shadow-inset ui-corner-all ui-btn-shadow ui-body-c'><input type='number' style='text-align: right' maxlength='3' max='100' id='n"+i+"' data-val='"+item['idIndikator']+"' data-id='0' class='ui-input-text ui-body-c' oninput='javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);' onfocus='javascript:if(this.value==0){this.value = \"\";}' onfocusout='javascript:if(this.value==\"\"){this.value = 0;}' value='0'/></div></td></tr>";
 				$("#tabel-penilaian").append(dataSub);
 			}
 			$("#jumlah-baris").val(dataset.length);
@@ -659,6 +659,7 @@ function setSiswaToLaporan(){
 			dataset = result.rows;
 			for (var i = 0, item = null; i < dataset.length; i++) {
 				item = dataset.item(i);
+				$("#li_kompetensi").html($('#pilihKompetensi-000 option:selected').text());
 				$("#li-nama").html(item['txtNamaSiswa']);
 				$("#li-nomor").html(item['noUrut']);
 			}
@@ -673,7 +674,7 @@ function showLaporanRekap(){
 	var idKelas = $("#pilihKelas-000").val();
 	div.html('');
 	tabel.html('');
-	s = "SELECT * FROM tblSiswa WHERE idKelas="+idKelas;
+	s = "SELECT * FROM tblSiswa WHERE idKelas="+idKelas+" ORDER BY noUrut";
 	db.transaction(function (tx) {
 		tx.executeSql(s, [], function (tx, result) {
 			dataset = result.rows;
@@ -741,7 +742,7 @@ function showLaporanRekap2(){
 				for (var i = 0, item = null; i < dataset.length; i++) {
 					item = dataset.item(i);
 					console.log("idSiswa="+idSiswa);
-					$("#nr-"+item['idSiswa']).html(parseFloat($("#nr-"+item['idSiswa']).html())+item['nilai']*item['bobot']/100);
+					$("#nr-"+item['idSiswa']).html(parseFloat($("#nr-"+item['idSiswa']).html())+item['nilai']*item['bobot']/100/dataset.length);
 				}
 			});
 			tx.executeSql(s2, [], function (tx, result) {
@@ -750,7 +751,7 @@ function showLaporanRekap2(){
 				for (var i = 0, item = null; i < dataset.length; i++) {
 					item = dataset.item(i);
 					console.log("idSiswa="+idSiswa);
-					$("#nr-"+item['idSiswa']).html(parseFloat($("#nr-"+item['idSiswa']).html())+item['nilai']*item['bobot']/100);
+					$("#nr-"+item['idSiswa']).html(parseFloat($("#nr-"+item['idSiswa']).html())+item['nilai']*item['bobot']/100/dataset.length);
 				}
 			});
 			tx.executeSql(s3, [], function (tx, result) {
@@ -759,7 +760,7 @@ function showLaporanRekap2(){
 				for (var i = 0, item = null; i < dataset.length; i++) {
 					item = dataset.item(i);
 					console.log("idSiswa="+idSiswa);
-					$("#nr-"+item['idSiswa']).html(parseFloat($("#nr-"+item['idSiswa']).html())+item['nilai']*item['bobot']/100);
+					$("#nr-"+item['idSiswa']).html(parseFloat($("#nr-"+item['idSiswa']).html())+item['nilai']*item['bobot']/100/dataset.length);
 				}
 			});
 			tx.executeSql(s4, [], function (tx, result) {
@@ -768,7 +769,7 @@ function showLaporanRekap2(){
 				for (var i = 0, item = null; i < dataset.length; i++) {
 					item = dataset.item(i);
 					console.log("idSiswa="+idSiswa);
-					$("#nr-"+item['idSiswa']).html(parseFloat($("#nr-"+item['idSiswa']).html())+item['nilai']*item['bobot']/100);
+					$("#nr-"+item['idSiswa']).html(parseFloat($("#nr-"+item['idSiswa']).html())+item['nilai']*item['bobot']/100/dataset.length);
 				}
 			});
 			tx.executeSql(s5, [], function (tx, result) {
@@ -777,7 +778,7 @@ function showLaporanRekap2(){
 				for (var i = 0, item = null; i < dataset.length; i++) {
 					item = dataset.item(i);
 					console.log("idSiswa="+idSiswa);
-					$("#nr-"+item['idSiswa']).html(parseFloat($("#nr-"+item['idSiswa']).html())+item['nilai']*item['bobot']/100);
+					$("#nr-"+item['idSiswa']).html(parseFloat($("#nr-"+item['idSiswa']).html())+item['nilai']*item['bobot']/100/dataset.length);
 				}
 				$("#nr-"+idSiswa).html(parseFloat($("#nr-"+idSiswa).html()).toFixed(2));
 				$("#na-"+idSiswa).html(terbilang($("#nr-"+idSiswa).html()));
@@ -1049,6 +1050,22 @@ function terbilang(a){
 	var res = a+b+c+'koma '+d+e;
 	return res;
 }
+function saveSiswa(val1,val2,val3){
+	sqlStatement = "SELECT * FROM tblSiswa WHERE idKelas="+val1+" AND noUrut="+val2;
+	db.transaction(function (tx) {
+		tx.executeSql(sqlStatement, [], function (tx, result) {
+			dataset = result.rows;
+			if(dataset.length == 0){
+				exeSQL('INSERT INTO tblSiswa VALUES(null,'+val1+','+val2+',\''+val3+'\')');
+			}else{
+				alert('No Urut sudah ada');
+			}
+		});
+	});
+	
+	//exeSQL('INSERT INTO tblSiswa VALUES(null,'+$('#pilihKelas-1').val()+','+$('#add-no-urut').val()+',\''+$('#add-nama-siswa').val()+'\')');
+	//saveSiswa($('#pilihKelas-1').val(),$('#add-no-urut').val(),$('#add-nama-siswa').val());
+}
 
 /**
 * 
@@ -1068,4 +1085,8 @@ $(document).ready(function (){
 	$("#simpan-bobot").click(simpanBobot);
 	$("#btn-search-penilaian").click(showDaftarPenilaian);
 	$("#btn-simpan-nilai").click(simpanNilai);
+	/*$("input").focus(function() {
+		console.log(this+"focus");
+	  this.value = "";
+	});*/
 });

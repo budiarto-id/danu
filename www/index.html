@@ -44,61 +44,61 @@
             <div data-role="content" >
 					<ul data-role="listview">
 						<li class="btn-menu-utama">
-							<a href="#penilaian-page" onmousedown="showDropdownPenilaian()">
+							<a href="#penilaian-page" onmousedown="showDropdownPenilaian()" style="text-decoration: none;">
 								<img src="img/icon/penilaian.png" alt="">
 								<h2><b>PENILAIAN</b></h2>
 							</a>
 						</li>
 						<li class="btn-menu-utama">
-							<a href="#daftar-jurusan-page" onmousedown="showDaftarJurusan()">
+							<a href="#daftar-jurusan-page" onmousedown="showDaftarJurusan()" style="text-decoration: none;">
 								<img src="img/icon/jurusan.png" alt="">
 								<h2><b>DAFTAR JURUSAN</b></h2>
 							</a>
 						</li>
 						<li class="btn-menu-utama">
-							<a href="#daftar-kelas-page" onmousedown="showDropdown()">
+							<a href="#daftar-kelas-page" onmousedown="showDropdown()" style="text-decoration: none;">
 								<img src="img/icon/kelas.png" alt="">
 								<h2><b>DAFTAR KELAS</b></h2>
 							</a>
 						</li>	
 						<li class="btn-menu-utama">
-							<a href="#daftar-siswa-page" onmousedown="showDropdown()">
+							<a href="#daftar-siswa-page" onmousedown="showDropdown()" style="text-decoration: none;">
 								<img src="img/icon/siswa.png" alt="">
 								<h2><b>DAFTAR SISWA</b></h2>
 							</a>
 						</li>	
 						<li class="btn-menu-utama">
-							<a href="#daftar-mapel-page" onmousedown="showDaftarMapel()">
+							<a href="#daftar-mapel-page" onmousedown="showDaftarMapel()" style="text-decoration: none;">
 								<img src="img/icon/mapel.png" alt="">
 								<h2><b>DAFTAR MAPEL</b></h2>
 							</a>
 						</li>	
 						<li class="btn-menu-utama">
-							<a href="#daftar-kompetensi-page" onmousedown="showDropdownMapel()">
+							<a href="#daftar-kompetensi-page" onmousedown="showDropdownMapel()" style="text-decoration: none;">
 								<img src="img/icon/kompetensi.png" alt="">
 								<h2><b>DAFTAR KOMPETENSI</b></h2>
 							</a>
 						</li>
 						<li class="btn-menu-utama">
-							<a href="#komponen-penilaian-page" onmousedown="showDropdownKomponen()">
+							<a href="#komponen-penilaian-page" onmousedown="showDropdownKomponen()" style="text-decoration: none;">
 								<img src="img/icon/komponen.png" alt="">
 								<h2><b>KOMPONEN PENILAIAN</b></h2>
 							</a>
 						</li>	
 						<li class="btn-menu-utama">
-							<a href="#petunjuk-page">
+							<a href="#petunjuk-page" style="text-decoration: none;">
 								<img src="img/icon/bantuan.png" alt="">
 								<h2><b>PETUNJUK</b></h2>
 							</a>
 						</li>
 						<li class="btn-menu-utama">
-							<a href="#about-page">
+							<a href="#about-page" style="text-decoration: none;">
 								<img src="img/icon/tentang.png" alt="">
 								<h2><b>TENTANG</b></h2>
 							</a>
 						</li>
 						<li class="btn-menu-merah">
-							<a href="#" onclick="navigator.app.exitApp()">
+							<a href="#exit-page" style="text-decoration: none;">
 								<img src="img/icon/exit.png" alt="">
 								<h2><b>KELUAR</b></h2>
 							</a>
@@ -106,6 +106,26 @@
 					</ul>	
 			</div>
         </div><!-- /page  -->	
+		
+		<div  id="exit-page" data-role="page" style="background: url('img/bg/bg-profil.png'); background-repeat: repeat-x repeat-y;">
+			<div data-role="content" align="justify" style="font-size: 16px;">
+				<!-- Isi konten di sini -->
+				<center>
+					<div style="margin:auto;">
+						<div class="ui-corner-all custom-corner" style="width:100%">
+							<div data-role="header">
+								<h3>Konfirmasi</h3>
+							</div>
+							<div data-role="content" style="background-color: rgba(255,255,255,0.7);">
+								<p style="text-align: center;"><b>Kamu yakin akan keluar dari aplikasi ini?</b></p>
+								<a href="#home-page" data-role="button" class="ui-btn-inline" data-theme="b">tidak</a>
+								<a href="#" data-role="button" class="ui-btn-inline" onclick="navigator.app.exitApp()" data-theme="d">ya</a>
+							</div>
+						</div>
+					</div>
+				</center>
+			</div>
+		</div>
 		
         <!-- Penilaian Page -->
 		<div id="penilaian-page" data-role="page" style="background: url('img/bg/bg-profil.png'); background-repeat: repeat-x repeat-y;">
@@ -228,7 +248,6 @@
 					</select>
 					<a href="#" data-role="button" data-icon="search" data-theme="b" data-inline="true" id="searchDaftarSiswa">Lihat Siswa</a>
 				</div>
-				<input type="button" onclick="tableToExcel('tabel-siswa', 'Daftar Siswa')" value="Export to Excel">
 				<table data-role="table" data-mode="columntoggle" class="ui-responsive ui-shadow" id="tabel-siswa">
 					<thead>
 						<tr>
@@ -260,7 +279,7 @@
 		            <input type="number" name="add-no-urut" id="add-no-urut" value="" placeholder="no urut">
 		            <label for="txt-mapel">Nama Siswa:</label>
 		            <input type="text" name="add-nama-siswa" id="add-nama-siswa" value="" placeholder="nama siswa">
-					<a href="#" data-rel="back" data-role="button" data-icon="arrow-check" onmousedown="exeSQL('INSERT INTO tblSiswa VALUES(null,'+$('#pilihKelas-1').val()+','+$('#add-no-urut').val()+',\''+$('#add-nama-siswa').val()+'\')')">Simpan</a>
+					<a href="#" data-rel="back" data-role="button" data-icon="arrow-check" onmousedown="saveSiswa($('#pilihKelas-1').val(),$('#add-no-urut').val(),$('#add-nama-siswa').val())">Simpan</a>
 	        	</div>
 			</div>
 			<div data-role="popup" id="frm-update-siswa" data-theme="b" class="ui-corner-all">
@@ -604,6 +623,11 @@
 		
 		<div id="laporan-siswa" data-role="page" style="font-size: 16px;">
 			<table id="tabel-laporan-individu" style="border-collapse: collapse">
+				<tr>
+					<td></td>
+					<td>Kompetensi</td>
+					<td colspan="3" id="li-kompetensi">Kompetensi Dasar</td>
+				</tr>
 				<tr>
 					<td></td>
 					<td>Nama</td>
