@@ -108,6 +108,9 @@ margin: .8em 30% .8em;
 .ui-icon-ms-home-bt {
     background: url("../img/home-bt.png") 100% 100% no-repeat;
 }
+.ui-table-columntoggle-btn {
+    display: none !important;
+}
 .uang {
 	text-align: right;
 }
