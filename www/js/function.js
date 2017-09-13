@@ -828,19 +828,21 @@ function showLaporanIndividu(){
 						+	"<td rowspan=\""+(dataset.length+2)+"\" style=\"border: 1px solid; text-align: center\" id=\"nilai1\">0</td>"
 						+"</tr>";
 			tabel.append(baris);
+			jumlahNilai = 0;
 			for (var i = 0, item = null; i < dataset.length; i++) {
 				item = dataset.item(i);
 				baris = "<tr>"
 						+"	<td colspan=\"2\" style=\"border: 1px solid\">"+item['indikator']+"</td>"
 						+"	<td style=\"border: 1px solid; text-align: center\">"+item['nilai']+"</td>"
 						+"</tr>";
-				$("#nilai1").html(parseFloat($("#nilai1").html())+item['nilai']*item['bobot']/100);
+				$("#nilai1").html(parseFloat($("#nilai1").html())+item['nilai']*item['bobot']/100/dataset.length);
 				tabel.append(baris);
+				jumlahNilai += item['nilai'];
 			}
 			baris = "<tr>"
 					+"	<td colspan=\"2\" style=\"border: 1px solid; text-align: center\"><b>Jumlah Skor Komponen</b></td>"
 					+"	<td style=\"border: 1px solid; text-align: center\">";
-			if(dataset.length == 0){baris+="0"}else{baris+=item['nilai']};
+			if(dataset.length == 0){baris+="0"}else{baris+=jumlahNilai};
 			baris += "</td>";
 			baris += "</tr>";
 			tabel.append(baris);
@@ -855,19 +857,21 @@ function showLaporanIndividu(){
 						+	"<td rowspan=\""+(dataset.length+2)+"\" style=\"border: 1px solid; text-align: center\" id=\"nilai2\">0</td>"
 						+"</tr>";
 			tabel.append(baris);
+			jumlahNilai = 0;
 			for (var i = 0, item = null; i < dataset.length; i++) {
 				item = dataset.item(i);
 				baris = "<tr>"
 						+"	<td colspan=\"2\" style=\"border: 1px solid\">"+item['indikator']+"</td>"
 						+"	<td style=\"border: 1px solid; text-align: center\">"+item['nilai']+"</td>"
 						+"</tr>";
-				$("#nilai2").html(parseFloat($("#nilai2").html())+item['nilai']*item['bobot']/100);
+				$("#nilai2").html(parseFloat($("#nilai2").html())+item['nilai']*item['bobot']/100/dataset.length);
 				tabel.append(baris);
+				jumlahNilai += item['nilai'];
 			}
 			baris = "<tr>"
 					+"	<td colspan=\"2\" style=\"border: 1px solid; text-align: center\"><b>Jumlah Skor Komponen</b></td>"
 					+"	<td style=\"border: 1px solid; text-align: center\">";
-			if(dataset.length == 0){baris+="0"}else{baris+=item['nilai']};
+			if(dataset.length == 0){baris+="0"}else{baris+=jumlahNilai};
 			baris += "</td>";
 			baris += "</tr>";
 			tabel.append(baris);
@@ -882,19 +886,21 @@ function showLaporanIndividu(){
 						+	"<td rowspan=\""+(dataset.length+2)+"\" style=\"border: 1px solid; text-align: center\" id=\"nilai3\">0</td>"
 						+"</tr>";
 			tabel.append(baris);
+			jumlahNilai = 0;
 			for (var i = 0, item = null; i < dataset.length; i++) {
 				item = dataset.item(i);
 				baris = "<tr>"
 						+"	<td colspan=\"2\" style=\"border: 1px solid\">"+item['indikator']+"</td>"
 						+"	<td style=\"border: 1px solid; text-align: center\">"+item['nilai']+"</td>"
 						+"</tr>";
-				$("#nilai3").html(parseFloat($("#nilai3").html())+item['nilai']*item['bobot']/100);
+				$("#nilai3").html(parseFloat($("#nilai3").html())+item['nilai']*item['bobot']/100/dataset.length);
 				tabel.append(baris);
+				jumlahNilai += item['nilai'];
 			}
 			baris = "<tr>"
 					+"	<td colspan=\"2\" style=\"border: 1px solid; text-align: center\"><b>Jumlah Skor Komponen</b></td>"
 					+"	<td style=\"border: 1px solid; text-align: center\">";
-			if(dataset.length == 0){baris+="0"}else{baris+=item['nilai']};
+			if(dataset.length == 0){baris+="0"}else{baris+=jumlahNilai};
 			baris += "</td>";
 			baris += "</tr>";
 			tabel.append(baris);
@@ -909,19 +915,21 @@ function showLaporanIndividu(){
 						+	"<td rowspan=\""+(dataset.length+2)+"\" style=\"border: 1px solid; text-align: center\" id=\"nilai4\">0</td>"
 						+"</tr>";
 			tabel.append(baris);
+			jumlahNilai = 0;
 			for (var i = 0, item = null; i < dataset.length; i++) {
 				item = dataset.item(i);
 				baris = "<tr>"
 						+"	<td colspan=\"2\" style=\"border: 1px solid\">"+item['indikator']+"</td>"
 						+"	<td style=\"border: 1px solid; text-align: center\">"+item['nilai']+"</td>"
 						+"</tr>";
-				$("#nilai4").html(parseFloat($("#nilai4").html())+item['nilai']*item['bobot']/100);
+				$("#nilai4").html(parseFloat($("#nilai4").html())+item['nilai']*item['bobot']/100/dataset.length);
 				tabel.append(baris);
+				jumlahNilai += item['nilai'];
 			}
 			baris = "<tr>"
 					+"	<td colspan=\"2\" style=\"border: 1px solid; text-align: center\"><b>Jumlah Skor Komponen</b></td>"
 					+"	<td style=\"border: 1px solid; text-align: center\">";
-			if(dataset.length == 0){baris+="0"}else{baris+=item['nilai']};
+			if(dataset.length == 0){baris+="0"}else{baris+=jumlahNilai};
 			baris += "</td>";
 			baris += "</tr>";
 			tabel.append(baris);
@@ -936,19 +944,21 @@ function showLaporanIndividu(){
 						+	"<td rowspan=\""+(dataset.length+2)+"\" style=\"border: 1px solid; text-align: center\" id=\"nilai5\">0</td>"
 						+"</tr>";
 			tabel.append(baris);
+			jumlahNilai = 0;
 			for (var i = 0, item = null; i < dataset.length; i++) {
 				item = dataset.item(i);
 				baris = "<tr>"
 						+"	<td colspan=\"2\" style=\"border: 1px solid\">"+item['indikator']+"</td>"
 						+"	<td style=\"border: 1px solid; text-align: center\">"+item['nilai']+"</td>"
 						+"</tr>";
-				$("#nilai5").html(parseFloat($("#nilai5").html())+item['nilai']*item['bobot']/100);
+				$("#nilai5").html(parseFloat($("#nilai5").html())+item['nilai']*item['bobot']/100/dataset.length);
 				tabel.append(baris);
+				jumlahNilai += item['nilai'];
 			}
 			baris = "<tr>"
 					+"	<td colspan=\"2\" style=\"border: 1px solid; text-align: center\"><b>Jumlah Skor Komponen</b></td>"
 					+"	<td style=\"border: 1px solid; text-align: center\">";
-			if(dataset.length == 0){baris+="0"}else{baris+=item['nilai']};
+			if(dataset.length == 0){baris+="0"}else{baris+=jumlahNilai};
 			baris += "</td>";
 			baris += "</tr>";
 			tabel.append(baris);
