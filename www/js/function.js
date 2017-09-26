@@ -271,6 +271,8 @@ function showDropdownKomponen(){
 	$("#dd-kompetensi-00").html("<option value='0'>Pilih Mapel Terlebih Dahulu</option>");
 	$("#dd-mapel-01").html("<option value='0'>Pilih Mapel</option>");
 	$("#dd-kompetensi-01").html("<option value='0'>Pilih Mapel Terlebih Dahulu</option>");
+	$("#dd-mapel-02").html("<option value='0'>Pilih Mapel</option>");
+	$("#dd-kompetensi-02").html("<option value='0'>Pilih Mapel Terlebih Dahulu</option>");
 	sqlStatement = "SELECT * FROM tblMapel";
 	db.transaction(function (tx) {
         tx.executeSql(sqlStatement, [], function (tx, result) {
@@ -280,6 +282,7 @@ function showDropdownKomponen(){
                 var mapel = "<option value='"+item['idMapel']+"'>"+item['txtMapel']+"</option>";
                 $("#dd-mapel-00").append(mapel);
                 $("#dd-mapel-01").append(mapel);
+                $("#dd-mapel-02").append(mapel);
             }
         });
     });
@@ -291,6 +294,10 @@ function showDropdownKomponen(){
 	$("#dd-kompetensi-01").change();
 	$("#dd-komponen-01").val('0');
 	$("#dd-komponen-01").change();
+	$("#dd-mapel-02").change();
+	$("#dd-kompetensi-02").change();
+	$("#dd-komponen-02").val('0');
+	$("#dd-komponen-02").change();
 }
 function get_kompetensi_from_mapel(){
 	if($("#dd-mapel-00").val()==0){
@@ -329,6 +336,25 @@ function get_kompetensi_from_mapel01(){
 		});
 	}
 	$("#dd-kompetensi-01").change();
+}
+function get_kompetensi_from_mapel02(){
+	if($("#dd-mapel-02").val()==0){
+		$("#dd-kd-02").html("<option value='0'>Pilih Mapel Terlebih Dahulu</option>");
+	}else{
+		$("#dd-kd-02").html("<option value='0'>Pilih Kompetensi</option>");
+		sqlStatement = "SELECT * FROM tblKompetensi WHERE idMapel="+$("#dd-mapel-02").val();
+		db.transaction(function (tx) {
+			tx.executeSql(sqlStatement, [], function (tx, result) {
+				dataset = result.rows;
+				for (var i = 0, item = null; i < dataset.length; i++) {
+					item = dataset.item(i);
+					var opsi = "<option value='"+item['idKompetensi']+"'>"+item['txtKompetensi']+"</option>";
+					$("#dd-kd-02").append(opsi);
+				}
+			});
+		});
+	}
+	$("#dd-kd-02").change();
 }
 
 
@@ -533,7 +559,7 @@ function showDaftarKD(){
 	var tabel = $("#tabel-daftar-kompetensi");
 	tabel.html('');
 	sqlStatement = "SELECT * FROM tblKompetensi WHERE idMapel = "+$("#pilihMapel").val();
-	console.log(sqlStatement);
+	//console.log(sqlStatement);
 	db.transaction(function (tx) {
 		tx.executeSql(sqlStatement, [], function (tx, result) {
 			dataset = result.rows;
@@ -557,7 +583,7 @@ function showDaftarKD(){
 function showDaftarIndikator(){
 	$("#tabel-daftar-subkomponen").html('');
 	sqlStatement = "SELECT * FROM tblIndikator WHERE idMapel = "+$("#dd-mapel-00").val()+" AND idKompetensi = "+$("#dd-kompetensi-00").val()+" AND idPenilaian = "+$("#dd-komponen-00").val();
-	console.log(sqlStatement);
+	//console.log(sqlStatement);
 	db.transaction(function (tx) {
 		tx.executeSql(sqlStatement, [], function (tx, result){
 			dataset = result.rows;
@@ -566,11 +592,34 @@ function showDaftarIndikator(){
 			}
 			for (var i = 0, item = null; i < dataset.length; i++){
 				item = dataset.item(i);
-				var dataSub = "<tr><td>"+item['txtIndikator']+"</td><td><a href='#' data-theme='b' class='ui-btn ui-icon-edit ui-btn-icon-notext ui-corner-all ui-btn-hover-b ui-btn-up-b'></a><a href='#' data-theme='b' class='ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all ui-btn-hover-b ui-btn-up-b' onclick='exeSQL(\"DELETE FROM tblIndikator WHERE idIndikator="+item['idIndikator']+"\");showDaftarIndikator()'></a></td></tr>";
+				var dataSub = "<tr><td>"+item['txtIndikator']+"</td><td><a href='#frm-edit-subkomponen' data-rel='popup' data-theme='b' class='ui-btn ui-icon-edit ui-btn-icon-notext ui-corner-all ui-btn-hover-b ui-btn-up-b' onmousedown='showFormEditSubkomponen("+item['idIndikator']+")'></a><a href='#' data-theme='b' class='ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all ui-btn-hover-b ui-btn-up-b' onclick='exeSQL(\"DELETE FROM tblIndikator WHERE idIndikator="+item['idIndikator']+"\");showDaftarIndikator()'></a></td></tr>";
 				$("#tabel-daftar-subkomponen").append(dataSub);
 			}
 		});
 	});
+}
+
+function showFormEditSubkomponen(idSub){
+	sqlStatement = "SELECT * FROM tblIndikator WHERE idIndikator = "+idSub;
+	//console.log(sqlStatement);
+	$("#id-update-subkomponen").val(idSub);
+	db.transaction(function (tx) {
+		tx.executeSql(sqlStatement, [], function (tx, result){
+			dataset = result.rows;
+			if(dataset.length == 0){
+				alert("Galat! Data tidak ditemukan");
+			}else{
+				item = dataset.item(0);
+				$("#update-subkomponen").val(item['txtIndikator']);
+			}
+		});
+	});
+}
+
+function updateSubkomponen(){
+	exeSQL("UPDATE tblIndikator SET txtIndikator='"+$('#update-subkomponen').val()+"' WHERE idIndikator="+$('#id-update-subkomponen').val());
+	//$("#frm-edit-subkomponen").popup("close");
+	showDaftarIndikator();
 }
 
 function showDaftarPenilaian(){
@@ -608,7 +657,7 @@ function setId(){
 			for(i=0; i<j; i++){
 				var idIndikator = $("#n"+i).data("val");
 				s = "SELECT * FROM tblDaftarNilai WHERE idSiswa="+idSiswa+" AND idMapel="+idMapel+" AND idPertemuan="+idKompetensi+" AND idIndikator="+idIndikator+"";
-				console.log(s);
+				//console.log(s);
 				t.executeSql(s, [], function (t, r){
 					ds = r.rows;
 					l = ds.length;
@@ -646,6 +695,7 @@ function simpanNilai(){
 				console.log("update sukses");
 			});
 		}
+		alert(Sukses! Nilai berhasil disimpan.);
 	});
 }
 
@@ -659,7 +709,7 @@ function setSiswaToLaporan(){
 			dataset = result.rows;
 			for (var i = 0, item = null; i < dataset.length; i++) {
 				item = dataset.item(i);
-				$("#li_kompetensi").html($('#pilihKompetensi-000 option:selected').text());
+				$("#li-kompetensi").html($('#pilihKompetensi-000 option:selected').text());
 				$("#li-nama").html(item['txtNamaSiswa']);
 				$("#li-nomor").html(item['noUrut']);
 			}
@@ -1005,12 +1055,17 @@ function simpanBobot(){
 	var bobot3 = $("#k3").val();
 	var bobot4 = $("#k4").val();
 	var bobot5 = $("#k5").val();
-	exeSQL("UPDATE tblPenilaian SET bobot="+bobot1+" WHERE idPenilaian=1");
-	exeSQL("UPDATE tblPenilaian SET bobot="+bobot2+" WHERE idPenilaian=2");
-	exeSQL("UPDATE tblPenilaian SET bobot="+bobot3+" WHERE idPenilaian=3");
-	exeSQL("UPDATE tblPenilaian SET bobot="+bobot4+" WHERE idPenilaian=4");
-	exeSQL("UPDATE tblPenilaian SET bobot="+bobot5+" WHERE idPenilaian=5");
-	alert("bobot baru berhasil disimpan");
+	total = bobot1 + bobot2 + bobot3 + bobot4 + bobot5;
+	if (total == 100){
+		exeSQL("UPDATE tblPenilaian SET bobot="+bobot1+" WHERE idPenilaian=1");
+		exeSQL("UPDATE tblPenilaian SET bobot="+bobot2+" WHERE idPenilaian=2");
+		exeSQL("UPDATE tblPenilaian SET bobot="+bobot3+" WHERE idPenilaian=3");
+		exeSQL("UPDATE tblPenilaian SET bobot="+bobot4+" WHERE idPenilaian=4");
+		exeSQL("UPDATE tblPenilaian SET bobot="+bobot5+" WHERE idPenilaian=5");
+		alert("bobot baru berhasil disimpan");
+	}else{
+		alert("Galat! Jumlah bobot harus 100%");
+	}
 }
 
 function eksekusiSQL(){
@@ -1027,6 +1082,7 @@ function eksekusiSQL(){
 * @param sqlStatement
 */
 function exeSQL(sqlStatement){
+	console.log(sqlStatement);
 	db.transaction(function (tx) { tx.executeSql(sqlStatement, [], console.log("SQL Success"), onError); });
 }
 

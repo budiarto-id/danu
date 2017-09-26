@@ -479,6 +479,17 @@
 					<a href="#" data-rel="back" data-role="button" data-icon="arrow-check" onmousedown="exeSQL('INSERT INTO tblIndikator VALUES(null,'+$('#dd-komponen-01').val()+','+$('#dd-mapel-01').val()+','+$('#dd-kompetensi-01').val()+',\''+$('#add-subkomponen').val()+'\')')">Simpan</a>
 	        	</div>
 			</div>
+			<div data-role="popup" id="frm-edit-subkomponen" data-theme="b" class="ui-corner-all">
+				<div data-role="header">
+					<h1>Edit Subkomponen</h1>
+				</div>
+				<div data-role="content">
+		            <label for="txt-mapel">Subkomponen :</label>
+		            <input type="text" id="update-subkomponen" placeholder="subkomponen">
+		            <input type="hidden" id="id-update-subkomponen" placeholder="subkomponen">
+					<a href="#" data-rel="back" data-role="button" data-icon="arrow-check" onmousedown="exeSQL('UPDATE tblIndikator SET txtIndikator=\''+$('#update-subkomponen').val()+'\' WHERE idIndikator=\''+$('#id-update-subkomponen').val()+'\'');showDaftarIndikator();$.mobile.back();">Simpan</a>
+	        	</div>
+			</div>
         </div><!-- /page  -->
 		
 		<!-- Daftar Pembobotan Page -->
