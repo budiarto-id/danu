@@ -695,7 +695,7 @@ function simpanNilai(){
 				console.log("update sukses");
 			});
 		}
-		alert(Sukses! Nilai berhasil disimpan.);
+		alert("Sukses! Nilai berhasil disimpan.");
 	});
 }
 
@@ -1119,6 +1119,22 @@ function saveSiswa(val1,val2,val3){
 		});
 	});
 	
+	//exeSQL('INSERT INTO tblSiswa VALUES(null,'+$('#pilihKelas-1').val()+','+$('#add-no-urut').val()+',\''+$('#add-nama-siswa').val()+'\')');
+	//saveSiswa($('#pilihKelas-1').val(),$('#add-no-urut').val(),$('#add-nama-siswa').val());
+}
+function saveKelas(val1,val2){
+	sqlStatement = "SELECT * FROM tblKelas WHERE idJurusan="+val1+" AND txtKelas="+val2;
+	db.transaction(function (tx) {
+		tx.executeSql(sqlStatement, [], function (tx, result) {
+			dataset = result.rows;
+			if(dataset.length == 0){
+				exeSQL('INSERT INTO tblKelas VALUES(null,'+val1+',\''+val2+'\')');
+			}else{
+				alert('Kelas sudah ada.');
+			}
+		});
+	});
+	//exeSQL('INSERT INTO tblKelas VALUES(null,'+$('#pilihJurusan-2').val()+',\''+$('#add-nama-kelas').val()+'\')')
 	//exeSQL('INSERT INTO tblSiswa VALUES(null,'+$('#pilihKelas-1').val()+','+$('#add-no-urut').val()+',\''+$('#add-nama-siswa').val()+'\')');
 	//saveSiswa($('#pilihKelas-1').val(),$('#add-no-urut').val(),$('#add-nama-siswa').val());
 }

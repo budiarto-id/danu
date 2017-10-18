@@ -212,7 +212,7 @@
 					</select>
 		            <label for="txt-mapel">Nama Kelas:</label>
 		            <input type="text" name="add-nama-siswa" id="add-nama-kelas" value="" placeholder="Nama Kelas">
-					<a href="#" data-rel="back" data-role="button" data-icon="arrow-check" onmousedown="exeSQL('INSERT INTO tblKelas VALUES(null,'+$('#pilihJurusan-2').val()+',\''+$('#add-nama-kelas').val()+'\')')">Simpan</a>
+					<a href="#" data-rel="back" data-role="button" data-icon="arrow-check" onmousedown="saveKelas($('#pilihJurusan-2').val(),$('#add-nama-kelas').val())">Simpan</a>
 	        	</div>
 			</div>
 			<div data-role="popup" id="frm-update-kelas" data-theme="b" class="ui-corner-all">
@@ -692,7 +692,7 @@
 		<div id="petunjuk-page" data-role="page" style="background: url('img/bg/bg-profil.png'); background-repeat: repeat-x repeat-y;">
 			<div data-role="header" data-position="fixed" data-tap-toggle="false" data-transition="none" data-id="header">
 				<a href="#" data-rel="back" data-role="button" data-icon="arrow-l" data-inline="true" >Back</a>
-				<h1>Bantuan</h1>
+				<h1>Petunjuk</h1>
             </div>
             <div data-role="content" style="font-size: 16px;">
 				<div data-role="collapsible" data-collapsed-icon="arrow-d" data-expanded-icon="arrow-u" data-iconpos="right" data-theme="a">
