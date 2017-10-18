@@ -1123,7 +1123,8 @@ function saveSiswa(val1,val2,val3){
 	//saveSiswa($('#pilihKelas-1').val(),$('#add-no-urut').val(),$('#add-nama-siswa').val());
 }
 function saveKelas(val1,val2){
-	sqlStatement = "SELECT * FROM tblKelas WHERE idJurusan="+val1+" AND txtKelas="+val2;
+	console.log('saveKelas');
+	sqlStatement = "SELECT * FROM tblKelas WHERE idJurusan="+val1+" AND txtKelas='"+val2+"'";
 	db.transaction(function (tx) {
 		tx.executeSql(sqlStatement, [], function (tx, result) {
 			dataset = result.rows;
