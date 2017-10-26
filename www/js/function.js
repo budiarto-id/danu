@@ -1050,12 +1050,13 @@ function showBobot(){
 *
 */
 function simpanBobot(){
-	var bobot1 = $("#k1").val();
-	var bobot2 = $("#k2").val();
-	var bobot3 = $("#k3").val();
-	var bobot4 = $("#k4").val();
-	var bobot5 = $("#k5").val();
+	var bobot1 = parseInt($("#k1").val());
+	var bobot2 = parseInt($("#k2").val());
+	var bobot3 = parseInt($("#k3").val());
+	var bobot4 = parseInt($("#k4").val());
+	var bobot5 = parseInt($("#k5").val());
 	total = bobot1 + bobot2 + bobot3 + bobot4 + bobot5;
+	console.log(total);
 	if (total == 100){
 		exeSQL("UPDATE tblPenilaian SET bobot="+bobot1+" WHERE idPenilaian=1");
 		exeSQL("UPDATE tblPenilaian SET bobot="+bobot2+" WHERE idPenilaian=2");
