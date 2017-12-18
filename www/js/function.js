@@ -710,6 +710,7 @@ function setSiswaToLaporan(){
 			for (var i = 0, item = null; i < dataset.length; i++) {
 				item = dataset.item(i);
 				$("#li-kompetensi").html($('#pilihKompetensi-000 option:selected').text());
+				$("#li-kelas").html($('#pilihKelas-000 option:selected').text());
 				$("#li-nama").html(item['txtNamaSiswa']);
 				$("#li-nomor").html(item['noUrut']);
 			}
